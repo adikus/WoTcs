@@ -18,7 +18,11 @@ These scripts should be set to run using CRON:
 
 ### Regions
 0 - RU
+
 1 - EU
+
 2 - NA
+
 3 - SEA
+
 5 - KR
