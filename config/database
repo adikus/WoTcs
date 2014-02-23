@@ -1,0 +1,105 @@
+<?php
+
+class Database {
+	public static $configLocal = array(
+		'address' => 'localhost',
+		'name'	=> 'root',
+		'pass'	=> '',
+		'database'	=> 'wotstats'
+	),$config = array(
+		'address' => 'server',
+		'name'	=> 'username',
+		'pass'	=> 'password',
+		'database'	=> 'dbname'
+	);
+	
+	public $mysqli;
+	private $lastQuery;
+
+	
+	public function __construct(){
+		$this->connect();
+		$this->saveLog = false;
+		$this->logFile = dirname(__FILE__)."/../log/db.txt";
+		if($this->saveLog)$this->startLogging();
+	}
+	
+	function __destruct() {
+		if($this->saveLog)$this->stopLogging();
+	}
+	
+	public function connect(){
+		$config = LOCAL?self::$configLocal:self::$config;
+		$this->mysqli = new mysqli($config['address'], $config['name'], $config['pass'], $config['database']);
+		if ($this->mysqli->connect_errno) {
+			echo "Failed to connect to MySQL: " . $this->mysqli->connect_error;
+		}
+		$this->mysqli->query("SET CHARACTER SET utf8");
+	}
+	
+	private function getRows($res){
+		$r = array();
+		while($row = $res->fetch_assoc()){
+			$r[] = $row;
+		}
+		return $r;
+	}
+	
+	public function affected(){
+		return $this->mysqli->affected_rows;
+	}
+	
+	public function getCount(){
+		$q = $this->lastQuery;
+		$q = preg_replace('/SELECT (.*?) FROM/i','SELECT COUNT(*) FROM',$q);
+		$q = preg_replace('/LIMIT (.*)/','',$q);
+		$res = $this->mysqli->query($q) or die("(" . $this->mysqli->errno . ") " . $this->mysqli->error." LINE: ".__LINE__." in ".__FILE__." TRACE:<pre> ".print_r(debug_backtrace(),true)."</pre>");
+		if (!$res) {
+			throw new Exception("Database Error [{$this->mysqli->errno}] {$this->mysqli->error}");
+		}
+		$ret = $this->getRows($res);
+		return $ret[0]['COUNT(*)'];
+	}
+	
+	public function query($q){
+		$this->lastQuery = $q;
+		$this->log .= $q."\n";
+		$res = $this->mysqli->query($q) or die("(" . $this->mysqli->errno . ") " . $this->mysqli->error." LINE: ".__LINE__." in ".__FILE__." TRACE:<pre> ".print_r(debug_backtrace(),true)."</pre>");
+		if (!$res) {
+			throw new Exception("Database Error [{$this->mysqli->errno}] {$this->mysqli->error}");
+		}
+		$ret =  is_object($res)?$this->getRows($res):true;
+		$this->queries += 1;
+		if($ret !== true){
+			$rows = count($ret);
+			$this->rows += $rows;
+			$this->log .= '('.$rows.' rows)'."\n";
+		}
+		return $ret;
+	}
+	
+	private function startLogging(){
+		$this->start = microtime(true);
+		$this->log .= '-------------------------------------'."\n";
+		$this->log .= '['.date("d.m.Y H:i:s").'] Request started'."\n";
+		$this->log .= $_SERVER['SCRIPT_FILENAME']."\n";
+		$this->log .= '-------------------------------------'."\n";
+		$this->rows = 0;
+		$this->queries = 0;
+	}
+	
+	private function stopLogging(){
+		$this->log .= '-------------------------------------'."\n";
+		$this->log .= 'Queries: '.$this->queries.' Rows: '.$this->rows.'  ';
+		$this->log .= round((microtime(true)-$this->start)*1000,3).'ms'."\n";
+		$this->log .= '['.date("d.m.Y H:i:s").'] Request ended'."\n";
+		$this->log .= '-------------------------------------'."\n";
+		if($this->saveLog && file_exists ( $this->logFile )){
+			$fh = fopen($this->logFile, 'a') or die("Can't open file");
+			fwrite($fh, $this->log);
+			fclose($fh);
+		}
+	}
+}
+
+return new Database();
