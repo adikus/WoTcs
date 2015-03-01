@@ -1,4 +1,4 @@
-<h3>Owned provinces:<img class="detail-loading" src="img/detail-loader.gif"/></h3>
+<h3>Owned provinces:<img class="detail-loading provinces" src="img/detail-loader.gif"/></h3>
 <table id="owned_provinces" class="table table-bordered table-striped">
 	<thead>
 		<tr>
@@ -13,7 +13,7 @@
 	</tbody>
 </table>
 		
-<h3>Battle schedule:<img class="detail-loading" src="img/detail-loader.gif"/></h3>
+<h3>Battle schedule:<img class="detail-loading battles" src="img/detail-loader.gif"/></h3>
 <table id="battle_schedule" class="table table-bordered table-striped">
 	<thead>
 		<tr>

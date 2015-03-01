@@ -37,7 +37,7 @@ ob_start();
 	<!-- End BuySellAds Zone Code -->
 </div>
 
-<? if(ON_WOTCS){ ?>
+<? if(!LOCAL){ ?>
 <div class="wp-listing">
 	<div class="row">
 		<h1 class="span1"><a href="http://blog.wotcs.com">Blog</a></h1>

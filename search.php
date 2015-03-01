@@ -12,18 +12,19 @@ $t = isset($_GET['t'])?$_GET['t']:'clans';
 $wotReq = new WotRequest($region);
 $data = $wotReq->searchRequest($t,$_GET['search'],$max,$p->getRealOffset(),$region);
 $clansData = array();
-if($data["result"] == "success"){
-	if(count($data["request_data"]["items"]) == 0 && $t == 'clans'){
-		$data2 = $wotReq->searchRequest('accounts',$_GET['search'],$max,$p->getRealOffset(),$region);
-		if(count($data2["request_data"]["items"]) > 0 && $data2["result"] == "success"){
-			$data = $data2;
-			$t = "accounts";
-		}
+if(!isset($data["request_data"])){
+	$data["request_data"] = array('items' => array(), 'filtered_count' => 0);	
+}
+if(count($data["request_data"]["items"]) == 0 && $t == 'clans'){
+	$data2 = $wotReq->searchRequest('accounts',$_GET['search'],$max,$p->getRealOffset(),$region);
+	if(count($data2["request_data"]["items"]) > 0 && $data2["result"] == "success"){
+		$data = $data2;
+		$t = "accounts";
 	}
-	foreach ($data["request_data"]["items"] as $clan){
-		$clantag = isset($clan['tag'])?$clan['tag']:$clan['abbreviation'];
-		$clansData[] = array('wid' => $clan['id'], 'clantag'=>$clantag,'name'=>$clan['name']);
-	}
+}
+foreach ($data["request_data"]["items"] as $clan){
+	$clantag = isset($clan['tag'])?$clan['tag']:$clan['abbreviation'];
+	$clansData[] = array('wid' => $clan['id'], 'clantag'=>$clantag,'name'=>$clan['name']);
 }
 $p->setCount($data["request_data"]["filtered_count"]);
 

@@ -4,7 +4,7 @@ define(["models/clan","models/charts_manager",'./../shared/stats'], function(Cla
 	$(document).ready(function(){
 		var clan = new Clan(WID);
 		var chartsManager = new ChartsManager();
-		var src = WOT_BASE+"media/clans/emblems/clans_"+WID.toString().charAt(0)+"/"+WID+"/emblem_64x64.png";
+		var src = WOT_BASE+"media/clans/emblems/cl_"+WID.toString().slice(-3)+"/"+WID+"/emblem_64x64.png";
 		
 		
 					

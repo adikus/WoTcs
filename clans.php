@@ -7,16 +7,19 @@ $region = isset($_GET['region'])?$_GET['region']:(isset($_COOKIE['region'])?$_CO
 setcookie('region',$region,time()+3600*24*100,'/');
 $sort = isset($_GET['order'])?$_GET['order']:'az';
 $p = new Paginator( 30, isset($_GET['p'])?$_GET['p']-1:0);
+$where = '';
 
 switch($sort){
 	case 'sc3':
-		$order = 'SC3 DESC';	break;
+		$order = 'SC3 DESC';
+		$where = ' AND updated_at > '.(time() - 60*60*24*7);	break;
 	case 'wn7':
-		$order = 'WN7 DESC';	break;
+		$order = 'WN7 DESC';
+		$where = ' AND updated_at > '.(time() - 60*60*24*7);	break;
 	default:
 		$order = 'tag ASC';	break;
 }
-$clans = Clan::sql($db,"SELECT * FROM `clans` WHERE `tag` <> '' AND `region` = ".$region." ORDER BY ".$order.$p->getLimit());
+$clans = Clan::sql($db,"SELECT * FROM `clans` WHERE `tag` <> '' AND `region` = ".$region.$where." ORDER BY ".$order.$p->getLimit());
 $p->setCount($db->getCount());
 
 $c = new ColumnManager($clans,3);

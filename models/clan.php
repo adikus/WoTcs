@@ -59,6 +59,10 @@ class Clan extends BaseModel{
 	public function getUpdatedAt(){
 		return $this->getField('updated_at');
 	}
+
+	public function setUpdatedAt($timestamp){
+		$this->setField('updated_at', $timestamp);
+	}
 	
 	public function exists(){
 		return !($this->id == null);

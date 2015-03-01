@@ -52,6 +52,23 @@ ob_end_clean();
 ob_start();
 ?>
 <div class="hero-unit">
+	<? if($wid == 500003940){ ?>
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="alert alert-error">
+				Pozor! Tento klan je známy používaním nekalých praktík na CW.<br/>
+				<small>
+					Bol som kontaktovaný vedením klanu <a href="<?=URL_BASE?>clan.php?wid=500031623">ARES1</a>, ktorý dovolil tomuto klanu prejsť cez ich územie k ich spojencom.
+					Keď lehota "prenájmu" vypršala a chceli územie naspäť, stretol sa s odporom čo vyvrcholilo vo vzájomný stret klanov v CW bitke.
+					Počas tejto bitky sa ale jednému hráčovi z klanu CZ-SK podarilo neobjasneným spôsobom nadobudnúť admin práva na TS klanu ARES
+					a dať všetkým tam prítomným ban. Dôkazy z tohohto incidentu si môžete pozrieť 
+					<a href="<?=URL_BASE?>img/cz-sk/ban1.png">tu</a>, <a href="<?=URL_BASE?>img/cz-sk/ban2.png">tu</a> a <a href="<?=URL_BASE?>img/cz-sk/ban3.jpg">tu</a>.
+					<b>Majte sa na pozore pred týmto klanom!</b> 
+				</small>
+			</div>
+		</div>
+	</div>
+	<? } ?>
 	<div class="row">
 		<div class="ad-300-250">
 			<!-- BuySellAds Zone Code -->
@@ -186,12 +203,16 @@ ob_start();
 </div>
 	
 	<script>
-		var WID = <?=$clan->getWid()?>,
-			WOT_BASE = 'http://clans.<?=getHost($clan->getRegion())?>/',
-			CONTOUR_URL = 'http://<?=getHost($clan->getRegion())?>/static/3.6.0.3/encyclopedia/tankopedia/vehicle/contour/'; 
-			STATS_SORT = 'eff',
-			INFO_LOADED = false,
-			URL_BASE = '<?=URL_BASE?>';
+		WID = <?=$clan->getWid()?>;
+		WOT_BASE = 'http://clans.<?=getHost($clan->getRegion())?>/';
+		WOT_CW_BASE = 'http://<?=getHost($clan->getRegion())?>/';
+		WOT_API_BASE = 'http://api.<?=getHost($clan->getRegion())?>/';
+		CONTOUR_URL = 'http://<?=getHost($clan->getRegion())?>/static/3.6.0.3/encyclopedia/tankopedia/vehicle/contour/'; 
+		STATS_SORT = 'eff';
+		BATTLES_LOADED = false;
+		PROVINCES_LOADED = false;
+		API_KEY = '<?=getAPIKey($clan->getRegion())?>';
+		URL_BASE = '<?=URL_BASE?>';
 
 		$.tablesorter.addParser({ 
 	        // set a unique id 
@@ -285,38 +306,58 @@ ob_start();
 				}		
 			});
 		    $('a[href="#clan-info"]').on('show',function(){
-				if(!INFO_LOADED){
+				if(!BATTLES_LOADED){
 					$.ajax({
-						url: URL_BASE+'map_info.php',
-						data: {wid:WID},
+						url: WOT_API_BASE + 'wot/globalwar/battles/',
+						data: {
+							application_id: API_KEY,
+							clan_id: WID,
+							map_id: 'globalmap'
+						},
 						dataType: 'json',
 						success: function(data){
-							if(data.provinces)
-							for(var i in data.provinces.request_data.items){
-								var time = new Date(data.provinces.request_data.items[i].prime_time*1000);
-								row = '<tr><td><a href="'+WOT_BASE+'/clanwars/maps/?province='+data.provinces.request_data.items[i].id+'" target="_blank">'
-								+data.provinces.request_data.items[i].name+'</a></td>';
-								row += '<td>'+data.provinces.request_data.items[i].arena_name+'</td>';
-								row += '<td>'+data.provinces.request_data.items[i].revenue+'</td>';
-								row += '<td>'+time.getHours()+':'+("0"+time.getMinutes()).slice(-2)+'</td>';
-								row += '<td>'+data.provinces.request_data.items[i].occupancy_time+'</td></tr>';
-								$('#owned_provinces tbody').append(row);
+							if(!data.err){
+								for(var i in data.data[WID]){
+									var battle = data.data[WID][i];
+									var time = new Date(battle.time*1000);
+									row = '<tr><td><a href="'+WOT_CW_BASE+'/clanwars/maps/globalmap/?province='+battle.provinces[0]+'" target="_blank">';
+									row += battle.provinces_i18n[0].name_i18n+'</a></td>';
+									row += '<td>'+battle.arenas[0].name_i18n+'</td>';
+									if(time > 0){
+										row += '<td>'+time.getHours()+':'+("0"+time.getMinutes()).slice(-2)+'</td></tr>';										
+									} else { row += '<td>-</td></tr'; }
+									$('#battle_schedule tbody').append(row);
+								}
 							}
-							if(data.battles && data.battles.request_data)
-							for(var i in data.battles.request_data.items){
-								var time = new Date(data.battles.request_data.items[i].time*1000);	
-								row = '<tr><td><a href="'+WOT_BASE+'/clanwars/maps/?province='+data.battles.request_data.items[i].provinces[0].id+'" target="_blank">'
-									+data.battles.request_data.items[i].provinces[0].name+'</a></td>';
-								row += '<td>'+data.battles.request_data.items[i].arenas[0]+'</td>';
-								if(data.battles.request_data.items[i].time > 0)row += '<td>'+time.getHours()+':'+("0"+time.getMinutes()).slice(-2)+'</td></tr>';
-								else row += '<td>-</td></tr';
-								$('#battle_schedule tbody').append(row);
-							}
-							$('#clan-info .detail-loading').hide();
-							INFO_LOADED = true;
+							$('#clan-info .detail-loading.battles').hide();
+							BATTLES_LOADED = true;
+						}
+					});
+				}
+				if(!PROVINCES_LOADED){
+					$.ajax({
+						url: WOT_API_BASE + 'wot/globalwar/clanprovinces/',
+						data: {
+							application_id: API_KEY,
+							clan_id: WID
 						},
-						error: function(jqXHR, textStatus, errorThrown) {
-							console.log('AJAX Error: '+URL_BASE+'map_info.php');
+						dataType: 'json',
+						success: function(data){
+							if(!data.err && data.data[WID].map_id == 'globalmap'){
+								for(var i in data.data[WID].provinces){
+									var province = data.data[WID].provinces[i];
+									var time = new Date(province.prime_time*1000);
+									row = '<tr><td><a href="'+WOT_CW_BASE+'/clanwars/maps/globalmap?province='+province.province_id+'" target="_blank">'
+									row += province.province_i18n+'</a></td>';
+									row += '<td>'+province.arena_i18n+'</td>';
+									row += '<td>'+province.revenue+'</td>';
+									row += '<td>'+time.getHours()+':'+("0"+time.getMinutes()).slice(-2)+'</td>';
+									row += '<td>'+province.occupancy_time+'</td></tr>';
+									$('#owned_provinces tbody').append(row);
+								}
+							}
+							$('#clan-info .detail-loading.provinces').hide();
+							PROVINCES_LOADED = true;
 						}
 					});
 				}

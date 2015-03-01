@@ -25,9 +25,19 @@ define(['./../../shared/site_request','./../../shared/api_request','models/playe
 	    	this.status = 0.5;
 	    	
 	    	var self = this,
-	    		src = WOT_BASE+"media/clans/emblems/clans_"+WID.toString().charAt(0)+"/"+WID+"/emblem_64x64.png";
+	    		src = WOT_BASE+"media/clans/emblems/cl_"+WID.toString().slice(-3)+"/"+WID+"/emblem_64x64.png";
 	    	
-	    	request = new ApiRequest('clans','clan',this.wid,{},function(data){
+          $.get('http://clanapi-wotcs-eu.herokuapp.com/clans/'+this.wid);
+	    	  request = new ApiRequest('clans','clan',this.wid,{},function(data){
+	    		if(parseInt(data.clan_status,10) !== 1){
+					self.status = 4;
+					$('#alert_msg').removeClass().addClass('alert alert-error').html('Clan does not exist.<a class="close" data-dismiss="alert" href="#">&times;</a>').alert();
+    				new SiteRequest('save_clan.php','post',{
+    					wid: self.wid,
+						remove: true
+					},function(){console.log('Clan saved.');});
+    				return false;
+				}
 	    		if(data.tag == undefined){
 	    			if(data.clan_status !== 0 && data.clan_status !== "0"){
 						self.status = 3;

@@ -52,6 +52,29 @@ function getHost($r){
 	}
 }
 
+function getAPIKey($r){
+	switch($r){
+		case 0:
+			return '171745d21f7f98fd8878771da1000a31';
+			break;
+		case 1:
+			return 'd0a293dc77667c9328783d489c8cef73';
+			break;
+		case 2:
+			return '16924c431c705523aae25b6f638c54dd';
+			break;
+		case 3:
+			return '39b4939f5f2460b3285bfa708e4b252c';
+			break;
+		case 4:
+			return '?';
+			break;
+		case 5:
+			return 'ffea0f1c3c5f770db09357d94fe6abfb';
+			break;
+	}
+}
+
 function iptocountry($ip) {
 	if(strpos($ip,':')!==FALSE)return 'unknown';   
     $numbers = preg_split( "/\./", $ip);   

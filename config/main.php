@@ -25,7 +25,7 @@ if(!LOCAL){ob_start("ob_gzhandler");}
 session_start();
 
 $cssVersion = "1.5";
-$jsVersion = "1.5.1";
+$jsVersion = "1.5.6.1";
 
 const MAINTENANCE = false;
 
@@ -36,7 +36,7 @@ if(MAINTENANCE && !$a){
 	$active = 0;
 	$bigContent = true;
 	$title = 'Maintenance';
-	$content = '<div class="hero-unit"><h1>Under maintenance</h1>Site will be up in short time</div>';
+	$content = '<div class="hero-unit"><h1>Under maintenance</h1>Hi, I am migrating databases to new server. Site will be back up soon.</div>';
 	require 'layout.php';
 	exit();
 }

@@ -1,18 +1,20 @@
 <?php
 
+$region = isset($_GET['r']) ? $_GET['r'] : 1;
+
 require 'config/main.php';
 
 set_time_limit(0);
 
 $data = array();
-for($i = 0;$i < 6;$i++){
+for($i = $region;$i < $region+1;$i++){
 	if($i != 4){
 		$data[$i] = APIRequest::request('players','top',array("r"=>$i));
-		echo "Loaded ".$i.".<br>";
+		echo "Loaded ".$i.".<br>";	
 	}
 }
 $csvdata = array();
-for($i = 0;$i < 6;$i++){
+for($i = $region;$i < $region+1;$i++){
 	if($i != 4){
 		$csvdata[$i] = "";
 		$pos = array("1"=>array(),"2"=>array(),"3"=>array(),"4"=>array());
@@ -51,7 +53,7 @@ for($i = 0;$i < 6;$i++){
 	}
 }
 
-for($i = 0;$i < 6;$i++)if($i != 4){
+for($i = $region;$i < $region+1;$i++)if($i != 4){
 	$fname = "./top-".$i.".json";
 	if (!$fp=@fopen($fname,"w")) {
 		exit("Could not open ".$fname);

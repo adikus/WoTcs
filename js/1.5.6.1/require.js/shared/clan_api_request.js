@@ -2,7 +2,7 @@ define(function(){
 	var ApiRequest = Class.extend({
 		
 		init: function(path,success,fail) {	
-			var url = 'http://clanapi.wotcs.com/'+path.join('/');
+			var url = 'http://clanapi-wotcs-eu.herokuapp.com/'+path.join('/');
 			
 			
 			$.ajax({

@@ -18,7 +18,7 @@ define(['./../../shared/api_request','./../../shared/clan_api_request','./../../
 	    		document.title = 'WoT cs | '+data.name;
 	    		self.r.render({".hero-unit .name":data.name});
 	    		
-	    		if(data.clan_id != "0"){
+	    		if(data.clan_id && data.clan_id != "0"){
 	    			self.loadClanName(data.clan_id);
 	    			$('.hero-unit h1 img').attr('src',self.getClanImgSrc(data.clan_id));
 	    		}else{
@@ -85,7 +85,7 @@ define(['./../../shared/api_request','./../../shared/clan_api_request','./../../
 	    },
 	    
 	    getClanImgSrc: function(wid){
-	    	return WOT_BASE+"media/clans/emblems/clans_"+wid.toString().charAt(0)+"/"+wid+"/emblem_64x64.png";
+	    	return WOT_BASE+"media/clans/emblems/cl_"+wid.toString().slice(-3)+"/"+wid+"/emblem_64x64.png";
 	    },
 		
 	});
