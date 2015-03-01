@@ -52,11 +52,10 @@ define(function(){
 				ret += '<div class="tierb">'+toRoman(this.player.tanks[type]['tier'],true)+'</div>';
 			
 			for(var i in this.player.tanks[type]['tanks']){
-				var imgsrc = getNationName(this.player.tanks[type]['tanks'][i]['nation'])+"-"+this.player.tanks[type]['tanks'][i]['name'].toLowerCase(),
-					WR = roundNumber(this.player.tanks[type]['tanks'][i]['wins']/this.player.tanks[type]['tanks'][i]['battles']*100,1),
+				var WR = roundNumber(this.player.tanks[type]['tanks'][i]['wins']/this.player.tanks[type]['tanks'][i]['battles']*100,1),
 					WRClass = labelClass(WR,this.player.tanks[type]['tanks'][i].name+"-W"),
 					winRatio = ' <div class="label label-c'+(WRClass?WRClass:labelClass(WR,"WIN"))+'">('+this.player.tanks[type]['tanks'][i]['battles']+';'+WR+'%)</div>';
-				ret += '<div class="tank-section"><img src="'+CONTOUR_URL+imgsrc+'.png" alt="'+this.player.tanks[type]['tanks'][i]['lname']+'" title="'+this.player.tanks[type]['tanks'][i]['lname']+'">'+winRatio+'</div>';
+				ret += '<div class="tank-section"><img src="'+this.player.tanks[type]['tanks'][i].icon+'" alt="'+this.player.tanks[type]['tanks'][i]['name']+'" title="'+this.player.tanks[type]['tanks'][i]['name']+'">'+winRatio+'</div>';
 			}
 			
 			return ret;

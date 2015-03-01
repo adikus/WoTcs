@@ -20,10 +20,9 @@ define(function(){
 	    	var gpl = 0, win = 0, scr = 0;
 			for(var i in tanks){
 				tank = tanks[i];
-				var imgName = getNationName(tank.nation)+"-"+tank.name.toLowerCase(),
-					name = tank.lname,
+				var name = tank.name,
 					div = '<div class="veh-row-elem">';
-				div += '<img src="'+CONTOUR_URL+imgName+'.png" alt="'+name+'" title="'+name+'"><br>';
+				div += '<img src="'+tank.icon+'" alt="'+name+'" title="'+name+'"><br>';
 				div += name+"<br>";
 				var WR = roundNumber(tank.wins/tank.battles*100,2);
 				var SCR = tank.tier == 10?roundNumber(calcCS3(tank.battles,tank.wins,this.p.stats.WN7,t<3?1000:900),2):0;

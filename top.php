@@ -6,7 +6,7 @@ $db = require './config/database.php';
 $region = isset($_GET['region'])?$_GET['region']:(isset($_COOKIE['region'])?$_COOKIE['region']:1);
 setcookie('region',$region,time()+3600*24*100,'/');
 
-$clanJSON = json_decode(file_get_contents("./top-".$region.".json"),true);
+$clanJSON = file_get_contents("./top-".$region.".json");
 
 $active = 1;
 $bigContent = true;
@@ -57,7 +57,6 @@ Export as: <a href="<?=URL_BASE?>top-<?=$region?>.csv">CSV</a>
 	
 <script>
 	var WOT_BASE = 'http://<?=getHost($region)?>/',
-		CONTOUR_URL = 'http://<?=getHost($region)?>/static/3.6.0.3/encyclopedia/tankopedia/vehicle/contour/'; 
 		STATS_SORT = 'eff',
 		URL_BASE = '<?=URL_BASE?>';
 		
@@ -152,7 +151,7 @@ Export as: <a href="<?=URL_BASE?>top-<?=$region?>.csv">CSV</a>
 		}		
 	});
 		
-	clans = <?=json_encode($clanJSON["clans"])?>;
+	clans = <?=$clanJSON?>;
 	
 	var i = 0;
 	for(var j in clans){
@@ -203,11 +202,10 @@ Export as: <a href="<?=URL_BASE?>top-<?=$region?>.csv">CSV</a>
 		if(!vehs)return ret;
 		
 		for(var i in vehs){
-			var imgsrc = getNationName(vehs[i].nation)+"-"+vehs[i].name.toLowerCase(),
-				WR = roundNumber(vehs[i].wins/vehs[i].battles*100,1),
+			var WR = roundNumber(vehs[i].wins/vehs[i].battles*100,1),
 				WRClass = labelClass(WR,vehs[i].name+"-W"),
 				winRatio = ' <div class="label label-c'+(WRClass?WRClass:labelClass(WR,"WIN"))+'">('+vehs[i].count+';'+WR+'%)</div>';
-			ret += '<div class="tank-section"><img src="'+CONTOUR_URL+imgsrc+'.png" alt="'+vehs[i].lname+'" title="'+vehs[i].lname+'">'+winRatio+'</div>';
+			ret += '<div class="tank-section"><img src="'+vehs[i].icon+'" alt="'+vehs[i].name+'" title="'+vehs[i].lname+'">'+winRatio+'</div>';
 			count += vehs[i].count;
 			sortValue += vehs[i].count*WR/100;
 		}

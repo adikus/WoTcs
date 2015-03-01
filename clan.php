@@ -207,7 +207,6 @@ ob_start();
 		WOT_BASE = 'http://clans.<?=getHost($clan->getRegion())?>/';
 		WOT_CW_BASE = 'http://<?=getHost($clan->getRegion())?>/';
 		WOT_API_BASE = 'http://api.<?=getHost($clan->getRegion())?>/';
-		CONTOUR_URL = 'http://<?=getHost($clan->getRegion())?>/static/3.6.0.3/encyclopedia/tankopedia/vehicle/contour/'; 
 		STATS_SORT = 'eff';
 		BATTLES_LOADED = false;
 		PROVINCES_LOADED = false;

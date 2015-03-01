@@ -18,9 +18,9 @@ class PlayerStats {
 	}
 	
 	public function requestData() {
-		$this->rdata = APIRequest::request('players','player_stats');
-		$this->r2data = APIRequest::request('players','stats');
-		$this->r3data = APIRequest::request('players','clan_stats');
+		$this->rdata = APIRequest::request('players','stats/players');
+		$this->r2data = APIRequest::request('players','stats/vehs');
+		$this->r3data = APIRequest::request('players','stats/clans');
 	}
 	
 	public function calcData() {
@@ -187,6 +187,7 @@ class PlayerStats {
 	}
 	
 	public function getPercentile($key,$value,$type){
+		$type = substr($type, 0, -1);
 		$data = $this->db->query("SELECT * FROM `".$type."_stats_data` WHERE `key` = '".$key."' AND `value` >= ".$value." ORDER BY `value` ASC LIMIT 1");
 		$up = array($data[0]["value"],$data[0]["percentile"]);
 		$data = $this->db->query("SELECT * FROM `".$type."_stats_data` WHERE `key` = '".$key."' AND `value` < ".$value." ORDER BY `value` DESC LIMIT 1");

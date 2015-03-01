@@ -19,7 +19,7 @@ define(['./api_request','./clan_api_request','./site_request','./renderer'],func
 	    		clanClassesSpec = ['EFRA','WN7A','SC3A'];
 	    	if(key == 'member_count')return "CMC";
 	    	if(addClass.indexOf(key) == -1)return false;
-	    	if(this.type == "player")var c = key.length > 3?key.substring(0,3):key;
+	    	if(this.type == "players")var c = key.length > 3?key.substring(0,3):key;
 	    	else {
 	    		var c = "C";
 	    		if(clanClassesSpec.indexOf(key) == -1)c += key.length > 3?key.substring(0,3):key;
@@ -53,7 +53,7 @@ define(['./api_request','./clan_api_request','./site_request','./renderer'],func
 	    	
 	    	$('a[href="#stats-info"]').on('show',function(){
 				if(self.stats && !self.percentiles){
-					var toSend = self.type=="player"?{'GPL':'GPL','WIN':'WINA','SUR':'SURA','FRG':'FRGA','KD':'KD','SPT':'SPTA','DMG':'DMGA',
+					var toSend = self.type=="players"?{'GPL':'GPL','WIN':'WINA','SUR':'SURA','FRG':'FRGA','KD':'KD','SPT':'SPTA','DMG':'DMGA',
 								  'CPT':'CPTA','DPT':'DPTA','EXP':'EXPA','EFR':'EFR','WN7':'WN7','SC3':'SC3'}
 								  :{'CGPL':'GPL','CWIN':'WINA','CSUR':'SURA','CFRG':'FRGA','CKD':'KD','CSPT':'SPTA','CDMG':'DMGA',
 								  'CCPT':'CPTA','CDPT':'DPTA','CEXP':'EXPA','CEFRA':'EFRA','CWN7A':'WN7A','CSC3A':'SC3A','CMC':'member_count'},
@@ -83,7 +83,8 @@ define(['./api_request','./clan_api_request','./site_request','./renderer'],func
 	    		//console.log(this.stats);
 	    		if(!self.stats)return false;
 				if(!self.history){
-					new ApiRequest('players',self.type+'/stats',self.wid,{},function(data){
+					new ApiRequest('players',self.type,self.wid+'/stats',{},function(res){
+						var data = res.data;
 			    		data.days.updated_at.push(new Date());
 			    		data.days.GPL.push(self.stats.GPL);
 			    		data.days.WIN.push(self.stats.WIN);
@@ -109,7 +110,7 @@ define(['./api_request','./clan_api_request','./site_request','./renderer'],func
 						}
 			    	});
 				}
-				if(self.type == "clan"){
+				if(self.type == "clans"){
 					if(!self.changesLoaded){
 						self.loadChanges(function(){
 							self.determineChanges();
@@ -200,7 +201,8 @@ define(['./api_request','./clan_api_request','./site_request','./renderer'],func
 	    		var tempDate = new Date(this.historyData.days.updated_at[i]);
 	    		if(tempDate > changeDate){
 	    			var id = i+"-"+(i-1);
-	    			new ApiRequest('players','player/stats',change.player_id,{},function(data){
+	    			new ApiRequest('players','player',change.player_id+'/stats',{},function(res){
+	    				var data = res.data;
 	    				if(!data.days)return false;
 			    		for(var i=0;i<data.days.updated_at.length;i++){
 			    			var tempDate = new Date(data.days.updated_at[i]);
@@ -231,7 +233,7 @@ define(['./api_request','./clan_api_request','./site_request','./renderer'],func
 	    },
 	    
 	    addHeaderHistoryRow: function() {
-	    	$("#stats-info tbody").append('<tr><td colspan="'+(this.type=="player"?14:15)+'">Stats ~daily history:</td></th>');
+	    	$("#stats-info tbody").append('<tr><td colspan="'+(this.type=="players"?14:15)+'">Stats ~daily history:</td></th>');
 	    },
 	    
 	    prepareHistoryRowData: function(data, i, j){
@@ -247,7 +249,7 @@ define(['./api_request','./clan_api_request','./site_request','./renderer'],func
 	    		WN7: [data.WN7[i],data.WN7[j]],
 	    		GPL: [data.GPL[i],data.GPL[j]]
 	    	};
-	    	if(this.type == "clan")row.data.MC = [data.member_count[i],data.member_count[j]];
+	    	if(this.type == "clans")row.data.MC = [data.member_count[i],data.member_count[j]];
 	    	this.historyRowData.push(row);	    	
 	    },
 	    
@@ -278,7 +280,7 @@ define(['./api_request','./clan_api_request','./site_request','./renderer'],func
 	    
 	    getTdContent: function(value,percentage,keyP,keyC){
 	    	var psign = percentage?'%':'';
-	    	return '<span class="label label-c'+labelClass(value,this.type=="player"?keyP:keyC)+'">'+value+psign+'</label>';
+	    	return '<span class="label label-c'+labelClass(value,this.type=="players"?keyP:keyC)+'">'+value+psign+'</label>';
 	    },
 	    
 	    createStandardTd: function(data, key, percentage){
@@ -304,7 +306,7 @@ define(['./api_request','./clan_api_request','./site_request','./renderer'],func
 			row += this.createStandardTd(data,'DPT',false); 
 			row += this.createStandardTd(data,'EXP',false); 
 			
-			if(this.type == "player"){
+			if(this.type == "players"){
 				EFR = this.getRating(data,'EFR');
 				row += this.getTdContent(EFR, false, 'EFR', 'CEFRA')+'</td><td>';
 				WN7 = this.getRating(data,'WN7');
@@ -317,7 +319,7 @@ define(['./api_request','./clan_api_request','./site_request','./renderer'],func
 			}
 			SC3 = Math.round(data.SC3*100)/100;
 			row += (SC3>0?"+":"")+SC3+"</td>";
-			if(this.type == "clan"){
+			if(this.type == "clans"){
 		    	row += "<td>"+(data.member_count>0?"+":"")+data.member_count+"</td>";
 	    	}
 	    	return row;
@@ -335,7 +337,7 @@ define(['./api_request','./clan_api_request','./site_request','./renderer'],func
 	    		self.stats[key+'A'] = Math.round(temp*100)/100;
 	    	});
 	    	this.stats.KD = Math.round(stats.FRG/(stats.GPL-stats.SUR)*100)/100;
-	    	if(this.type == "clan"){
+	    	if(this.type == "clans"){
 	    		this.stats.EFRA = roundNumber(this.stats.EFR/stats.member_count,2);
 	    		this.stats.WN7A = roundNumber(this.stats.WN7/stats.member_count,2);
 	    		this.stats.SC3A = roundNumber(this.stats.SC3/stats.member_count,2);
@@ -382,8 +384,7 @@ define(['./api_request','./clan_api_request','./site_request','./renderer'],func
 	    	$('#history_stats_charts').click(function(){
 	    		$('#history_stats_charts').removeClass('visible');
 	    	});
-	    },
-		
+	    }
 	});
 	
 	return Stats;

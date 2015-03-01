@@ -9,7 +9,7 @@ set_time_limit(0);
 $data = array();
 for($i = $region;$i < $region+1;$i++){
 	if($i != 4){
-		$data[$i] = APIRequest::request('players','top',array("r"=>$i));
+		$data[$i] = APIRequest::request('players','clans/top',array("region"=>$i));
 		echo "Loaded ".$i.".<br>";	
 	}
 }

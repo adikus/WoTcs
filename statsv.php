@@ -9,43 +9,53 @@ $s = isset($_GET['s'])?$_GET['s']:'W';
 
 $playerStats = new PlayerStats($db);
 
-$vehs = array(2 => array(
-			"E-100"=>"E-100",
-			"Maus"=>"Maus",
-			"IS-7"=>"IS-7",
-			"IS-4"=>"IS-4",
-			"T110"=>"T110E5",
-			"F10_AMX_50B"=>"AMX 50B",
-			"T57_58"=>"T57 Heavy Tank",
-			"Ch22_113"=>"113",
-			"GB13_FV215b"=>"FV215b",
-			//"VK7201"=>"VK7201",
-			),1 => array(
-			"Bat_Chatillon25t"=>"Bat Chatillon 25 t",
-			"T62A"=>"T-62A",
-			"M48A1"=>"M48A1 Patton",
-			"E50_Ausf_M"=>"E-50 Ausf. M",
-			"Ch19_121"=>"121",
-			"GB70_FV4202_105"=>"FV4202",
-			//"Object_907"=>"Object 907",
-			//"M60"=>"M60",
-			"Leopard1"=>"Leopard1",
-			),4 => array(
-			"G_E"=>"GW Typ E",
-			"Object_261"=>"Object 261",
-			"T92"=>"T92",
-			"Bat_Chatillon155_58"=>"Bat Chatillon 155 58",
-			),3 => array(
-			"JagdPz_E100"=>"JagdPz E-100",
-			"T110E4"=>"T110E4",
-			"T110E3"=>"T110E3",
-			"Object268"=>"Object 268",
-			"GB48_FV215b_183"=>"FV215b (183)",
-			"Object263"=>"Object 263",
-			"AMX_50Fosh_155"=>"AMX-50 Foch (155)",
-			)
-			
-	);
+$vehs = array(
+	1 => array(
+		"3649" => "Bat.-Châtillon 25 t",
+		"3681" => "STB-1",
+		"4145" => "121",
+		"7249" => "FV4202",
+		"12305" => "E 50 Ausf. M",
+		"13825" => "T-62A",
+		"14113" => "M48A1 Patton",
+		"14609" => "Leopard 1",
+		"15617" => "Object 907",
+		"15905" => "M60",
+		"16897" => "Object 140",
+		"17153" => "Object 430"
+	),
+	2 => array(
+		"5425" => "113",
+		"6145" => "IS-4",
+		"6209" => "AMX 50 B",
+		"6225" => "FV215b",
+		"6929" => "Maus",
+		"7169" => "IS-7",
+		"9489" => "E 100",
+		"10785" => "T110E5",
+		"14881" => "T57 Heavy Tank",
+		"58369" => "Object 260 mod. 1945",
+		"58641" => "VK 72.01 (K)"
+	),
+	3 => array(
+		"9297" => "FV215b (183)",
+		"12049" => "Jagdpanzer E 100",
+		"13089" => "T110E4",
+		"13569" => "Object 268",
+		"13857" => "T110E3",
+		"13889" => "AMX 50 Foch (155)",
+		"13905" => "FV4005 Stage II",
+		"14337" => "Object 263",
+		"16913" => "Waffenträger auf E 100"
+	),
+	4 => array(
+		"8481" => "T92",
+		"8705" => "Object 261",
+		"9233" => "G.W. E 100",
+		"11841" => "Bat.-Châtillon 155 58",
+		"12369" => "Conqueror Gun Carriage" 
+	)
+);
 
 ob_start();
 ?>
@@ -91,8 +101,10 @@ ob_start();
 		var cdata = <?=$playerStats->chartData("veh")?>;
 		
 		for(var name in vehs[t]){
-			drawPlayerDataChart(cdata[name+"-"+s],vehs[t][name],name+"-"+s+"_chart");
-			$("#"+name+"_average").html(cdata[name+"-"+s].average);
+			if(cdata[name+"-"+s]){
+				drawPlayerDataChart(cdata[name+"-"+s],vehs[t][name],name+"-"+s+"_chart");
+				$("#"+name+"_average").html(cdata[name+"-"+s].average);
+			}
 		}
 	});
 	</script>

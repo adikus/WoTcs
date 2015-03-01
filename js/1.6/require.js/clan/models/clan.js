@@ -76,7 +76,7 @@ define(['./../../shared/site_request','./../../shared/api_request','models/playe
 	    	});
 	    },
 	    
-	    loadPlayers: function(force,ful,retry){
+	    loadPlayers: function(force,retry){
 	    	console.log('Loading players...');
 			$('#alert_msg').html('Loading players...');
 			
@@ -85,14 +85,14 @@ define(['./../../shared/site_request','./../../shared/api_request','models/playe
 			var self = this,
 				src = WOT_BASE+"media/clans/emblems/clans_"+WID.toString().charAt(0)+"/"+WID+"/emblem_64x64.png";
 			
-			request = new ApiRequest('players','clan',this.wid,{l:this.last?this.last:null,r:retry?retry:null,f:force?force:null,upl:ful?ful:null},function(data){
-	    		if(data.status == "wait"){
-	    			self.wait = 2500;
-	    			console.log("Waiting...");
-	    			self.status = 1;
-	    			return false;
-	    		}
-	    		
+			request = new ApiRequest('players','clans',this.wid,{
+				last: this.last || 0,
+				retry: retry || 0,
+				force: force || 0
+			},function(res){
+				if(res.status != 'ok')return;
+				var data = res.data;
+
 	    		if(!self.secondBar && data.last_pos > self.memberIds.length){
 	    			self.secondBar = true;
 	    			self.queueMax = data.last_pos - self.memberIds.length;

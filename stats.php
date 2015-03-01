@@ -47,10 +47,10 @@ ob_start();
 	$(document).ready(function(){
 		
 		$.ajax({
-			url: 'http://wotcsapiplayers.herokuapp.com/stats/',
+			url: 'http://wotcsapiplayers.herokuapp.com/stats/vehs',
 			dataType: 'json',
-			success: function(data){
-				
+			success: function(res){
+				var data = res.data;
 				for(i in data.vehs){
 					data.vehs[i].winrate = Math.round(data.vehs[i].winrate*100)/100;
 					tanks[data.vehs[i].type].push(data.vehs[i]);

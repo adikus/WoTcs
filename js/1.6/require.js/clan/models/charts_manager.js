@@ -26,10 +26,9 @@ define(function(){
 			var gpl = 0, win = 0, count = 0;
 			for(var i in tanks){
 				tank = tanks[i];
-				var imgName = getNationName(tank.nation)+"-"+tank.name.toLowerCase(),
-					name = tank.lname,
+				var name = tank.name,
 					div = '<div class="veh-row-elem">';
-				div += '<img src="'+CONTOUR_URL+imgName+'.png" alt="'+name+'" title="'+name+'"><br>';
+				div += '<img src="'+tank.icon+'" alt="'+name+'" title="'+name+'"><br>';
 				div += name+"<br>";
 				var WR = roundNumber(tank.wins/tank.battles*100,2);
 				var GPL = Math.round(tank.battles/tank.count*100)/100;
@@ -58,7 +57,7 @@ define(function(){
 	    	array1.push(['Vehicle', 'Number of people owning this tank']);
 	    	for(var i in tanks){
     			value = tanks[i].count;
-    			array1.push([tanks[i].lname, value]);
+    			array1.push([tanks[i].name, value]);
     		}
 	    	var data1 = google.visualization.arrayToDataTable(array1);
 	    	var chart1 = new google.visualization.PieChart(document.getElementById(t+'-chart'));

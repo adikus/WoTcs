@@ -12,7 +12,7 @@ const UPDATE_INTERVAL = 43200;//12 hours
 define('CACHE_DIR',dirname(__FILE__)."/../cache/");
 
 if ( '127.0.0.1' == $_SERVER['REMOTE_ADDR'] || '::1' == $_SERVER['REMOTE_ADDR']){
-	define( 'URL_BASE',	'http://localhost/wotcs.com/' );
+	define( 'URL_BASE',	'http://localhost/WoTcs/' );
 	define('LOCAL',true);
 }else {
 	define( 'URL_BASE',	'http://'.$_SERVER['SERVER_NAME'].'/' );
@@ -25,7 +25,7 @@ if(!LOCAL){ob_start("ob_gzhandler");}
 session_start();
 
 $cssVersion = "1.5";
-$jsVersion = "1.5.6.1";
+$jsVersion = "1.6";
 
 const MAINTENANCE = false;
 

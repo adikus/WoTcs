@@ -8,13 +8,13 @@ define(["models/clan","models/charts_manager",'./../shared/stats'], function(Cla
 		
 		
 					
-		var sm = new Stats('clan',WID);
+		var sm = new Stats('clans',WID);
 		
 		sm.renderStatsHistory();
 		sm.renderMemberChanges();
 		sm.showCharts();
 		
-		setInterval(function(){
+		var interval = setInterval(function(){
 			
 			clan.updateLoadBar();
 			
@@ -42,7 +42,7 @@ define(["models/clan","models/charts_manager",'./../shared/stats'], function(Cla
 				else{
 					if(clan.notUpdated() > 10){
 						clan.retry = 0;
-						clan.loadPlayers(false,false,true);
+						clan.loadPlayers(0,1);
 					}
 					else {
 						clan.addNotUpdatedPlayers();
@@ -55,8 +55,8 @@ define(["models/clan","models/charts_manager",'./../shared/stats'], function(Cla
 					clan.last = 0;
 					clan.status = 1;
 					clan.retry = 0;
-					clan.loadPlayers(false,true,true);
-				}
+					clan.loadPlayers(0,1);
+	            }
 				for(var i in clan.members){
 					if(!clan.members[i].updated() && clan.members[i].retry < 15 && !clan.members[i].waiting){
 						clan.members[i].loadData();
@@ -70,6 +70,7 @@ define(["models/clan","models/charts_manager",'./../shared/stats'], function(Cla
 				break;
 			case 3:
 				clan.status++;
+				clearInterval(interval);
 				if(clan.total){
 					clan.showStats(clan.total);
 					clan.countTops();

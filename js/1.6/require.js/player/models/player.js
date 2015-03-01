@@ -14,7 +14,8 @@ define(['./../../shared/api_request','./../../shared/clan_api_request','./../../
 	    loadFromAPI: function() {
 	    	var self = this;
 	    	
-	    	new ApiRequest('players','player',this.wid,{},function(data){
+	    	new ApiRequest('players','players',this.wid,{},function(res){
+	    		var data = res.data;
 	    		document.title = 'WoT cs | '+data.name;
 	    		self.r.render({".hero-unit .name":data.name});
 	    		
@@ -25,7 +26,7 @@ define(['./../../shared/api_request','./../../shared/clan_api_request','./../../
 	    			$('.hero-unit h1 img').remove();
 	    		}
 	    		
-	    		var sm = new Stats('player',self.wid);
+	    		var sm = new Stats('players',self.wid);
 	    		
 	    		self.stats = sm.calcStats(data.stats_current);
 	    		self.renderHeroUnit();
