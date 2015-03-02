@@ -27,16 +27,16 @@ session_start();
 $cssVersion = "1.5";
 $jsVersion = "1.6";
 
-const MAINTENANCE = false;
+const MAINTENANCE = true;
 
-$a = isset($_GET["a"])?isset($_GET["a"])=="a":false;
-if(!$a)$a = isset($_COOKIE["a"])?isset($_COOKIE["a"])=="a":false;
+$a = isset($_GET["a"]) ? $_GET["a"] == "a" : false;
+if(!$a)$a = isset($_COOKIE["a"]) ? $_COOKIE["a"] == "a" : false;
 
 if(MAINTENANCE && !$a){
 	$active = 0;
 	$bigContent = true;
 	$title = 'Maintenance';
-	$content = '<div class="hero-unit"><h1>Under maintenance</h1>Hi, I am migrating databases to new server. Site will be back up soon.</div>';
+	$content = '<div class="hero-unit"><h1>Under maintenance</h1>Site will be back up soon.</div>';
 	require 'layout.php';
 	exit();
 }
