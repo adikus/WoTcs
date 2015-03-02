@@ -25,9 +25,9 @@ if(!LOCAL){ob_start("ob_gzhandler");}
 session_start();
 
 $cssVersion = "1.5";
-$jsVersion = "1.6";
+$jsVersion = "1.6.1";
 
-const MAINTENANCE = true;
+const MAINTENANCE = false;
 
 $a = isset($_GET["a"]) ? $_GET["a"] == "a" : false;
 if(!$a)$a = isset($_COOKIE["a"]) ? $_COOKIE["a"] == "a" : false;
