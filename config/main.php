@@ -25,7 +25,7 @@ if(!LOCAL){ob_start("ob_gzhandler");}
 session_start();
 
 $cssVersion = "1.5";
-$jsVersion = "1.6.1";
+$jsVersion = "1.6.2";
 
 const MAINTENANCE = false;
 

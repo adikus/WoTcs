@@ -26,11 +26,11 @@ define(function(){
 				div += name+"<br>";
 				var WR = roundNumber(tank.wins/tank.battles*100,2);
 				var SCR = tank.tier == 10?roundNumber(calcCS3(tank.battles,tank.wins,this.p.stats.WN7,t<3?1000:900),2):0;
-				var GPLClass = labelClass(tank.battles,tank.name+"-B");
+				var GPLClass = labelClass(tank.battles,tank.id+"-B");
 				div += '<span class="first label label-c'+(GPLClass?GPLClass:0)+'">'+tank.battles+'</span><br>';
-				var WRClass = labelClass(WR,tank.name+"-W");
+				var WRClass = labelClass(WR,tank.id+"-W");
 				div += '<span class="label label-c'+(WRClass?WRClass:labelClass(WR,"WIN"))+'">'+WR+'%</span><br>';
-				var SCRlass = labelClass(SCR,tank.name+"-S");
+				var SCRlass = labelClass(SCR,tank.id+"-S");
 				div += '<span class="label label-c'+(SCRlass?SCRlass:scrClassTank(SCR))+'">'+SCR+'</span><br>';
 				div += '</div>'
 				$("#"+t+"-veh-row").append(div);

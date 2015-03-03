@@ -135,7 +135,7 @@ require_once 'config/etag.php';
 	    </div>
 	    <div id="footer">
 			<div class="container">
-			WoT clan statistics by <a href="http://forum.worldoftanks.eu/index.php?/user/367012-adikus/">adikus</a> | 2012
+			WoT clan statistics by <a href="http://forum.worldoftanks.eu/index.php?/user/367012-adikus/">adikus</a> | 2012 - 2015
 			</div>    
 	    </div>
 	</body>

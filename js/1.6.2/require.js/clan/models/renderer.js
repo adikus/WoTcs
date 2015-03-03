@@ -53,7 +53,7 @@ define(function(){
 			
 			for(var i in this.player.tanks[type]['tanks']){
 				var WR = roundNumber(this.player.tanks[type]['tanks'][i]['wins']/this.player.tanks[type]['tanks'][i]['battles']*100,1),
-					WRClass = labelClass(WR,this.player.tanks[type]['tanks'][i].name+"-W"),
+					WRClass = labelClass(WR,this.player.tanks[type]['tanks'][i].id+"-W"),
 					winRatio = ' <div class="label label-c'+(WRClass?WRClass:labelClass(WR,"WIN"))+'">('+this.player.tanks[type]['tanks'][i]['battles']+';'+WR+'%)</div>';
 				ret += '<div class="tank-section"><img src="'+this.player.tanks[type]['tanks'][i].icon+'" alt="'+this.player.tanks[type]['tanks'][i]['name']+'" title="'+this.player.tanks[type]['tanks'][i]['name']+'">'+winRatio+'</div>';
 			}

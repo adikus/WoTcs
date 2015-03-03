@@ -203,7 +203,7 @@ Export as: <a href="<?=URL_BASE?>top-<?=$region?>.csv">CSV</a>
 		
 		for(var i in vehs){
 			var WR = roundNumber(vehs[i].wins/vehs[i].battles*100,1),
-				WRClass = labelClass(WR,vehs[i].name+"-W"),
+				WRClass = labelClass(WR,vehs[i].id+"-W"),
 				winRatio = ' <div class="label label-c'+(WRClass?WRClass:labelClass(WR,"WIN"))+'">('+vehs[i].count+';'+WR+'%)</div>';
 			ret += '<div class="tank-section"><img src="'+vehs[i].icon+'" alt="'+vehs[i].name+'" title="'+vehs[i].lname+'">'+winRatio+'</div>';
 			count += vehs[i].count;

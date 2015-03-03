@@ -32,10 +32,10 @@ define(function(){
 				div += name+"<br>";
 				var WR = roundNumber(tank.wins/tank.battles*100,2);
 				var GPL = Math.round(tank.battles/tank.count*100)/100;
-				var GPLClass = labelClass(GPL,tank.name+"-B");
+				var GPLClass = labelClass(GPL,tank.id+"-B");
 				div += '<span class="first label label-c0">'+tank.battles+'</span><br>';
 				div += '<span class="label label-c'+(GPLClass?GPLClass:0)+'">'+GPL+'</span><br>';
-				var WRClass = labelClass(WR,tank.name+"-W");
+				var WRClass = labelClass(WR,tank.id+"-W");
 				div += '<span class="label label-c'+(WRClass?WRClass:labelClass(WR,"WIN"))+'">'+WR+'%</span><br>';
 				div += '<span class="label label-c0">'+tank.count+'</span><br>';
 				div += '</div>'
