@@ -91,6 +91,12 @@ ob_start();
 		<div class="span12 border-row"><?=$playerStats->bordersRow('WN7')?></div>
 	</div>
 	<div class="row">
+		<div id="wn8_chart" class="span12"></div>
+	</div>
+	<div class="row">
+		<div class="span12 border-row"><?=$playerStats->bordersRow('WN8')?></div>
+	</div>
+	<div class="row">
 		<div id="efr_chart" class="span12"></div>
 	</div>
 	<div class="row">
@@ -119,6 +125,7 @@ ob_start();
 		drawPlayerDataChart(cdata.DPT,"Defense points","dpt_chart");
 		drawPlayerDataChart(cdata.EXP,"Experience","exp_chart");
 		drawPlayerDataChart(cdata.WN7,"WN7","wn7_chart");
+		drawPlayerDataChart(cdata.WN8,"WN8","wn8_chart");
 		drawPlayerDataChart(cdata.EFR,"Efficiency","efr_chart");
 		drawPlayerDataChart(cdata.SC3,"Score","sc3_chart");
 	});

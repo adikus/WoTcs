@@ -1,7 +1,7 @@
 <?php
 if(LOCAL)return false;
 
-$layoutVersion = '1.4'.$jsVersion.$cssVersion;
+$layoutVersion = '1.4.1'.$jsVersion.$cssVersion;
 
 
 if(isset($content)){
