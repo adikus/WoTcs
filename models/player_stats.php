@@ -44,7 +44,7 @@ class PlayerStats {
 			if(!is_numeric ($value)){
 				$count -= $vcount;
 				unset($stat["data"][$value]);
-			}elseif($t == "SC3" && $value == 0 || $value > 100000000){
+			}elseif(($t == "SC3" && $value == 0) || ($t == "WN8" && $value > 100000) || $value > 100000000){
 				$count -= $vcount;
 				unset($stat["data"][$value]);
 			}else $total += $value*$vcount;

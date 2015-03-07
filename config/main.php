@@ -21,6 +21,10 @@ if ( '127.0.0.1' == $_SERVER['REMOTE_ADDR'] || '::1' == $_SERVER['REMOTE_ADDR'])
 define('ON_WOTCS', $_SERVER['SERVER_NAME'] == 'wotcs.com');
 
 if(!LOCAL){ob_start("ob_gzhandler");}
+else {
+	error_reporting(-1);
+	ini_set('display_errors', 'On');
+}
 
 session_start();
 
