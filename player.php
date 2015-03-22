@@ -38,6 +38,7 @@ ob_start();
 					<div class="row"><div class="left">Frags:</div><div class="right"><span class="label" id="frags"></span></div></div>
 					<div class="row"><div class="left">Damage:</div><div class="right"><span class="label" id="damage"></span></div></div>
 					<div class="row"><span class="left" id="last_updated"></span></div>
+					<div class="row"><span class="left" id="last_logout"></span></div>
 				</div>
 				<div class="span6">
 					<div class="row"><div class="left">Winrate:</div><div class="right"><span class="label" id="winrate"></span></div></div>

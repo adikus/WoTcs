@@ -249,7 +249,7 @@ div.separator {
 	font-size: 1.5em;
 }
 
-#last_updated {
+#last_updated, #last_logout {
 	width: auto;
 }
 

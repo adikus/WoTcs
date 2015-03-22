@@ -1,10 +1,11 @@
 define(['./../../shared/site_request','./../../shared/api_request','models/renderer'],function(SiteRequest,ApiRequest,Renderer){
 	var Player = Class.extend({
 		
-		init: function(wid,name,updated_at) {
+		init: function(wid,name,updated_at,logout_at) {
 			this.wid = wid;
 			this.name = name;
 			this.updated_at = new Date(updated_at);
+	    	this.logout_at = new Date(logout_at);
 			this.loaded = false;
 			this.waiting = false;
 			this.battles = [0,0,0,0,0];
@@ -36,6 +37,7 @@ define(['./../../shared/site_request','./../../shared/api_request','models/rende
 	    		self.name = data.name;
 	    		self.stats = data.stats_current;
 	    		self.updated_at = new Date(data.updated_at);
+	    		self.logout_at = new Date(data.logout_at);
 	    		self.countBattles();
 	    		self.loaded = true;
 				self.retry = 0;

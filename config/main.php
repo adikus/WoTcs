@@ -29,7 +29,7 @@ else {
 session_start();
 
 $cssVersion = "1.5";
-$jsVersion = "1.6.2";
+$jsVersion = "1.6.3";
 
 const MAINTENANCE = false;
 

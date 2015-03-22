@@ -29,6 +29,9 @@ define(['./../../shared/api_request','./../../shared/clan_api_request','./../../
 	    		var sm = new Stats('players',self.wid);
 	    		
 	    		self.stats = sm.calcStats(data.stats_current);
+
+	    		if(data.logout_at)
+    				self.r.render({'#last_logout': "Last time in game "+formatTime((new Date(data.logout_at)).getTime())});
 	    		self.renderHeroUnit();
 	    		
 	    		sm.renderStatsTable();
@@ -48,7 +51,7 @@ define(['./../../shared/api_request','./../../shared/clan_api_request','./../../
     			'#efficiency': {v:this.stats.EFR,c:'EFR'},
     			'#score': {v:this.stats.SC3,c:'SC3'},
     			'#wn7': {v:this.stats.WN7,c:'WN7'},
-    			'#last_updated': "Updated "+formatTime((new Date(this.stats.updated_at)).getTime()),
+    			'#last_updated': "Updated "+formatTime((new Date(this.stats.updated_at)).getTime())
     		});
 	    },
 	    

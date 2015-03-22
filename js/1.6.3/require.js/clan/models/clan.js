@@ -110,7 +110,7 @@ define(['./../../shared/site_request','./../../shared/api_request','models/playe
 					if(pos > -1){
 						delete self.memberIds[pos];
 						added++;
-						var tempPlayer = new Player(data.members[i].wid,data.members[i].name,data.members[i].updated_at);
+						var tempPlayer = new Player(data.members[i].wid,data.members[i].name,data.members[i].updated_at,data.members[i].logout_at);
 						tempPlayer.data = {best:data.members[i].vehs,stats:data.members[i].stats_current};
 						tempPlayer.fromData();
 						self.members.push(tempPlayer);

@@ -23,6 +23,8 @@ define(function(){
 		renderPlayerName: function() {
 			ret = '<a href="'+URL_BASE+'player.php?wid='+this.player.wid+'">'+this.player.name+'</a>';
 			ret += '<br>(Updated '+formatTime(this.player.updated_at.getTime())+')';
+			if(!isNaN(this.player.logout_at.getTime()))
+				ret += '<br>(In game '+formatTime(this.player.logout_at.getTime())+')';
 			
 			return ret;
 		},
