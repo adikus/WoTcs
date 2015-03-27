@@ -15,8 +15,8 @@ define(['./api_request','./clan_api_request','./site_request','./renderer'],func
 	    },
 	    
 	    labelClass: function(key) {
-	    	var addClass = ['GPL','KD','EFR','WN7','SC3','WINA','SURA','FRGA','SPTA','DMGA','CPTA','DPTA','EXPA','WN7A','EFRA','SC3A',],
-	    		clanClassesSpec = ['EFRA','WN7A','SC3A'];
+	    	var addClass = ['GPL','KD','EFR','WN7','WN8','SC3','WINA','SURA','FRGA','SPTA','DMGA','CPTA','DPTA','EXPA','WN7A','WN8A','EFRA','SC3A',],
+	    		clanClassesSpec = ['EFRA','WN7A','WN8A','SC3A'];
 	    	if(key == 'member_count')return "CMC";
 	    	if(addClass.indexOf(key) == -1)return false;
 	    	if(this.type == "players")var c = key.length > 3?key.substring(0,3):key;
@@ -29,10 +29,10 @@ define(['./api_request','./clan_api_request','./site_request','./renderer'],func
 	    },
 	    
 	    renderStatsTable: function() {
-	    	var table = [['GPL','WIN','SUR','FRG','KD','SPT','DMG','CPT','DPT','EXP','EFR','WN7','SC3','member_count'],
-	    				 ['-','WINA','SURA','FRGA','-','SPTA','DMGA','CPTA','DPTA','EXPA','EFRA','WN7A','SC3A','-']],
+	    	var table = [['GPL','WIN','SUR','FRG','KD','SPT','DMG','CPT','DPT','EXP','EFR','WN7','WN8','SC3','member_count'],
+	    				 ['-','WINA','SURA','FRGA','-','SPTA','DMGA','CPTA','DPTA','EXPA','EFRA','WN7A','WN8A','SC3A','-']],
 	    		percentage = ['SURA','WINA'],
-	    		addStar = ['EFRA','WN7A','SC3A'],
+	    		addStar = ['EFRA','WN7A','WN8A','SC3A'],
 	    		self = this;
 	    	for(var i = 1;i < 3;i++){
 	    		var j = 1;
@@ -41,6 +41,7 @@ define(['./api_request','./clan_api_request','./site_request','./renderer'],func
 	    				selector = '#stats-info tr:eq('+i+') td:eq('+j+')'+(c?' span':''),
 	    				value = c?{v:self.stats[key],c:c,s:addStar.indexOf(key)>-1,p:percentage.indexOf(key)>-1}:(key=='-'?'-':formatNumber(self.stats[key])),
 	    				render = {};
+	    			console.log(key, value);
 	    			render[selector] = value;
 	    			self.r.render(render);
 	    			j++;
@@ -54,9 +55,9 @@ define(['./api_request','./clan_api_request','./site_request','./renderer'],func
 	    	$('a[href="#stats-info"]').on('show',function(){
 				if(self.stats && !self.percentiles){
 					var toSend = self.type=="players"?{'GPL':'GPL','WIN':'WINA','SUR':'SURA','FRG':'FRGA','KD':'KD','SPT':'SPTA','DMG':'DMGA',
-								  'CPT':'CPTA','DPT':'DPTA','EXP':'EXPA','EFR':'EFR','WN7':'WN7','SC3':'SC3'}
+								  'CPT':'CPTA','DPT':'DPTA','EXP':'EXPA','EFR':'EFR','WN7':'WN7','WN8':'WN8','SC3':'SC3'}
 								  :{'CGPL':'GPL','CWIN':'WINA','CSUR':'SURA','CFRG':'FRGA','CKD':'KD','CSPT':'SPTA','CDMG':'DMGA',
-								  'CCPT':'CPTA','CDPT':'DPTA','CEXP':'EXPA','CEFRA':'EFRA','CWN7A':'WN7A','CSC3A':'SC3A','CMC':'member_count'},
+								  'CCPT':'CPTA','CDPT':'DPTA','CEXP':'EXPA','CEFRA':'EFRA','CWN7A':'WN7A','CWN8A':'WN8A','CSC3A':'SC3A','CMC':'member_count'},
 						stats = {};
 					_.each(toSend,function(key2,key1){
 						stats[key1] = self.stats[key2];
@@ -97,6 +98,7 @@ define(['./api_request','./clan_api_request','./site_request','./renderer'],func
 			    		data.days.EXP.push(self.stats.EXP);
 			    		data.days.EFR.push(self.stats.EFR);
 			    		data.days.WN7.push(self.stats.WN7);
+			    		data.days.WN8.push(self.stats.WN8);
 			    		data.days.SC3.push(self.stats.SC3);
 			    		self.addHeaderHistoryRow();
 		    			for(var i=data.days.updated_at.length-1;i>0;i--){
@@ -222,6 +224,7 @@ define(['./api_request','./clan_api_request','./site_request','./renderer'],func
 	    				}
 	    				self.historyRowData[hi].data.EFR[1] += -1*f*data.days.EFR[j];
 	    				self.historyRowData[hi].data.WN7[1] += -1*f*data.days.WN7[j];
+	    				self.historyRowData[hi].data.WN8[1] += -1*f*data.days.WN8[j];
 	    				self.historyRowData[hi].data.GPL[1] += -1*f*data.days.GPL[j];
 	    				self.historyRowData[hi].data.MC[1] += -1*f;
 	    				console.log(self.historyRowData[hi],data.days.GPL[j]);
@@ -247,6 +250,7 @@ define(['./api_request','./clan_api_request','./site_request','./renderer'],func
 	    	row.data = {
 	    		EFR: [data.EFR[i],data.EFR[j]],
 	    		WN7: [data.WN7[i],data.WN7[j]],
+	    		WN8: [data.WN8[i],data.WN8[j]],
 	    		GPL: [data.GPL[i],data.GPL[j]]
 	    	};
 	    	if(this.type == "clans")row.data.MC = [data.member_count[i],data.member_count[j]];
@@ -311,11 +315,15 @@ define(['./api_request','./clan_api_request','./site_request','./renderer'],func
 				row += this.getTdContent(EFR, false, 'EFR', 'CEFRA')+'</td><td>';
 				WN7 = this.getRating(data,'WN7');
 				row += this.getTdContent(WN7, false, 'WN7', 'CWN7A')+'</td><td>';
+				WN8 = this.getRating(data,'WN8');
+				row += this.getTdContent(WN8, false, 'WN8', 'CWN8A')+'</td><td>';
 			}else{
 				EFR = this.getRating(data,'EFR',true);
 				row += this.getTdContent(EFR, false, 'EFR', 'CEFRA')+'</td><td>';
 				WN7 = this.getRating(data,'WN7',true);
 				row += this.getTdContent(WN7, false, 'WN7', 'CWN7A')+'</td><td>';
+				WN8 = this.getRating(data,'WN8',true);
+				row += this.getTdContent(WN8, false, 'WN8', 'CWN8A')+'</td><td>';
 			}
 			SC3 = Math.round(data.SC3*100)/100;
 			row += (SC3>0?"+":"")+SC3+"</td>";
@@ -340,6 +348,7 @@ define(['./api_request','./clan_api_request','./site_request','./renderer'],func
 	    	if(this.type == "clans"){
 	    		this.stats.EFRA = roundNumber(this.stats.EFR/stats.member_count,2);
 	    		this.stats.WN7A = roundNumber(this.stats.WN7/stats.member_count,2);
+	    		this.stats.WN8A = roundNumber(this.stats.WN8/stats.member_count,2);
 	    		this.stats.SC3A = roundNumber(this.stats.SC3/stats.member_count,2);
 	    	}
 	    	

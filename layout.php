@@ -17,7 +17,7 @@ require_once 'config/etag.php';
 		<link href="img/favicon.ico" type="image/x-icon" rel="shortcut icon" />	
 		
 		<meta name="description" content="World of Tanks Clan Statistics is simple tool which will show you battle potential of your enemy.
-		It shows all you need, including Efficiency, WN7 and custom made Score.
+		It shows all you need, including Efficiency, WN7/WN8 and custom made Score.
 		Apart from clan info, it has many useful features, such as player and vehicle general statistics." />
 		<meta name="keywords" content="clan, statistics, adikus, wot, worldoftanks, cs" />
 		

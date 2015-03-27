@@ -201,6 +201,8 @@ define(['./../../shared/site_request','./../../shared/api_request','models/playe
 	    		SC3A = Math.round(total.stats_current.SC3/total.stats_current.member_count*100)/100,
 	    		WN7 = total.stats_current.WN7,
 	    		WN7A = Math.round(total.stats_current.WN7/total.stats_current.member_count*100)/100,
+	    		WN8 = total.stats_current.WN8,
+	    		WN8A = Math.round(total.stats_current.WN8/total.stats_current.member_count*100)/100,
 	    		EFR = total.stats_current.EFR,
 	    		EFRA = Math.round(total.stats_current.EFR/total.stats_current.member_count*100)/100;
 	    	
@@ -211,6 +213,9 @@ define(['./../../shared/site_request','./../../shared/api_request','models/playe
 	    	
 	    	$('#wn7_total').html(formatNumber(WN7)).addClass("label-c"+labelClass(WN7,"CWN7"));
 	    	$('#wn7_average').html(WN7A).addClass("label-c"+labelClass(WN7A,"CWN7A"));
+
+	    	$('#wn8_total').html(formatNumber(WN8)).addClass("label-c"+labelClass(WN8,"CWN8"));
+	    	$('#wn8_average').html(WN8A).addClass("label-c"+labelClass(WN8A,"CWN8A"));
 	    	
 	    	$('#score').html(formatNumber(SC3)).addClass("label-c"+labelClass(SC3,"CSC3"));
 	    	$('#score_average').html(SC3A).addClass("label-c"+labelClass(SC3A,"CSC3A"));
@@ -225,7 +230,8 @@ define(['./../../shared/site_request','./../../shared/api_request','models/playe
 					WR: WR,
 					SC3: SC3,
 					EFR: EFR,
-					WN7: WN7
+					WN7: WN7,
+					WN8: WN8
 				},function(){console.log('Clan saved.');});
 			}
 	    },

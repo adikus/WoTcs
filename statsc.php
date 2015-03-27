@@ -97,6 +97,18 @@ ob_start();
 		<div class="span12 border-row"><?=$playerStats->bordersRow('CWN7A')?></div>
 	</div>
 	<div class="row">
+		<div id="wn8_chart" class="span12"></div>
+	</div>
+	<div class="row">
+		<div class="span12 border-row"><?=$playerStats->bordersRow('CWN8')?></div>
+	</div>
+	<div class="row">
+		<div id="wn8a_chart" class="span12"></div>
+	</div>
+	<div class="row">
+		<div class="span12 border-row"><?=$playerStats->bordersRow('CWN8A')?></div>
+	</div>
+	<div class="row">
 		<div id="efr_chart" class="span12"></div>
 	</div>
 	<div class="row">
@@ -143,6 +155,8 @@ ob_start();
 		drawPlayerDataChart(cdata.CEXP,"Experience","exp_chart");
 		drawPlayerDataChart(cdata.CWN7,"WN7","wn7_chart");
 		drawPlayerDataChart(cdata.CWN7A,"Average WN7","wn7a_chart");
+		drawPlayerDataChart(cdata.CWN8,"WN8","wn8_chart");
+		drawPlayerDataChart(cdata.CWN8A,"Average WN8","wn8a_chart");
 		drawPlayerDataChart(cdata.CEFR,"Efficiency","efr_chart");
 		drawPlayerDataChart(cdata.CEFRA,"Average Efficiency","efra_chart");
 		drawPlayerDataChart(cdata.CSC3,"Score","sc3_chart");

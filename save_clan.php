@@ -18,6 +18,7 @@ if(isset($_POST['wid'])){
 	$clan->setStat('SC3',$_POST['SC3']);
 	$clan->setStat('EFR',$_POST['EFR']);
 	$clan->setStat('WN7',$_POST['WN7']);
+	$clan->setStat('WN8',$_POST['WN8']);
 	$clan->setUpdatedAt(time());
 	$clan->saveToDB();
 }

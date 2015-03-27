@@ -12,7 +12,7 @@ ob_start();
 <div class="hero-unit">
 	<h1>World of Tanks Clan Statistics</h1>
 	<p>World of Tanks Clan Statistics is simple tool which will show you battle potential of your enemy.
-		It shows all you need, including Efficiency, WN7 and custom made Score.
+		It shows all you need, including Efficiency, WN7/WN8 and custom made Score.
 		Apart from clan info, it has many useful features, such as player and vehicle general statistics.</p>
 	<form action="search.php" method="get" class="form-search">
 		<input class="span4" type="text" autofocus placeholder="Search" name="search"/>

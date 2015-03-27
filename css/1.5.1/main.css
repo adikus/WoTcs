@@ -442,8 +442,8 @@ div.separator {
 	width: 20.5%;
 }
 
-	.table td.stats .name-eff, .table td.stats .name-wn7, .table td.stats .name-scr, .table td.stats .name-dmg, .table td.stats .name-wr, .table td.stats .name-gpl,
-	.table td.name .name-eff, .table td.name .name-wn7, .table td.name .name-scr, .table td.name .name-dmg, .table td.name .name-wr, .table td.name .name-gpl  {
+	.table td.stats .name-eff, .table td.stats .name-wn7, .table td.stats .name-wn8, .table td.stats .name-scr, .table td.stats .name-dmg, .table td.stats .name-wr, .table td.stats .name-gpl,
+	.table td.name .name-eff, .table td.name .name-wn7, .table td.name .name-wn8, .table td.name .name-scr, .table td.name .name-dmg, .table td.name .name-wr, .table td.name .name-gpl  {
 		float: left;
 		width: 47%;
 		text-align: right;

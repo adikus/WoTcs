@@ -48,6 +48,7 @@ CREATE TABLE IF NOT EXISTS `clans` (
   `region` int(11) NOT NULL DEFAULT '0',
   `EFR` float NOT NULL,
   `WN7` float NOT NULL,
+  `WN8` float NOT NULL,
   `WR` float NOT NULL,
   `SC3` float NOT NULL,
   `updated_at` int(11) NOT NULL,

@@ -44,6 +44,7 @@ ob_start();
 					<div class="row"><div class="left">Winrate:</div><div class="right"><span class="label" id="winrate"></span></div></div>
 					<div class="row"><div class="left">Efficiency:</div><div class="right"><span class="label" id="efficiency"></span></div></div>
 					<div class="row"><div class="left">WN7:</div><div class="right"><span class="label" id="wn7"></span></div></div>
+					<div class="row"><div class="left">WN8:</div><div class="right"><span class="label" id="wn8"></span></div></div>
 					<div class="row"><div class="left">Score:</div><div class="right"><span class="label" id="score"></span></div></div>
 				</div>
 			</div>

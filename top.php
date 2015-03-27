@@ -39,7 +39,7 @@ Export as: <a href="<?=URL_BASE?>top-<?=$region?>.csv">CSV</a>
 			<th class="no">#</th>
 			<th class="name">Clan<br>
 				<span class="sort-eff label">EFF</span>
-				<span class="sort-wn7 label">WN7</span>
+				<span class="sort-wn8 label">WN8</span>
 				<span class="sort-wr label" href="#">WR</span><br>
 				<span class="sort-dmg label" href="#">DMG</span>
 				<span class="sort-gpl label" href="#">BTL</span> 
@@ -75,8 +75,8 @@ Export as: <a href="<?=URL_BASE?>top-<?=$region?>.csv">CSV</a>
 	        case 'eff':
 	        	i = s.indexOf('Efficiency:');
 	        	return parseFloat(s.slice(i+11,i+19));
-	        case 'wn7':
-	        	i = s.indexOf('WN7:');
+	        case 'wn8':
+	        	i = s.indexOf('WN8:');
 	        	return parseFloat(s.slice(i+4,i+12));
 	        case 'dmg':
 	        	i = s.indexOf('Damage:');
@@ -120,9 +120,9 @@ Export as: <a href="<?=URL_BASE?>top-<?=$region?>.csv">CSV</a>
 			sortClick(this);
 		}		
 	});
-	$('.sort-wn7').click(function(){
+	$('.sort-wn8').click(function(){
 		if(!$(this).hasClass('label-info')){
-			STATS_SORT = 'wn7';
+			STATS_SORT = 'wn8';
 			sortClick(this);
 		}		
 	});
@@ -181,8 +181,8 @@ Export as: <a href="<?=URL_BASE?>top-<?=$region?>.csv">CSV</a>
 	function renderStats(stats) {
 		eff = Math.round(stats['EFR']/stats['member_count']*100)/100;
 		ret = '<div class="row"><div class="name-eff">Efficiency:</div><div class="value eff"><span class="label label-c'+labelClass(eff,"CEFRA")+'">'+eff+'</span></div></div>';
-		wn7 = Math.round(stats['WN7']/stats['member_count']*100)/100;
-		ret += '<div class="row"><div class="name-wn7">WN7:</div><div class="value wn7"><span class="label label-c'+labelClass(wn7,"CWN7A")+'">'+wn7+'</span></div></div>';
+		wn8 = Math.round(stats['WN8']/stats['member_count']*100)/100;
+		ret += '<div class="row"><div class="name-wn8">WN8:</div><div class="value wn8"><span class="label label-c'+labelClass(wn8,"CWN8A")+'">'+wn8+'</span></div></div>';
 		wr = Math.round(stats['WIN']/stats['GPL']*10000)/100;
 		ret += '<div class="row"><div class="name-wr">Win Ratio:</div><div class="value wr"><span class="label label-c'+labelClass(wr,"CWIN")+'">'+wr+'%</span></div></div>';
 		dmg = Math.round(stats['DMG']/stats['GPL']*100)/100;

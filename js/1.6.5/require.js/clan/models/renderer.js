@@ -32,8 +32,8 @@ define(function(){
 		renderStats: function() {
 			eff = parseFloat(this.player.stats['EFR']);
 			ret = '<div class="row"><div class="name-eff">Efficiency:</div><div class="value eff"><span class="label label-c'+labelClass(eff,"EFR")+'">'+eff+'</span></div></div>';
-			wn7 = parseFloat(this.player.stats['WN7']);
-			ret += '<div class="row"><div class="name-wn7">WN7:</div><div class="value wn7"><span class="label label-c'+labelClass(wn7,"WN7")+'">'+wn7+'</span></div></div>';
+			wn8 = parseFloat(this.player.stats['WN8']);
+			ret += '<div class="row"><div class="name-wn8">WN8:</div><div class="value wn8"><span class="label label-c'+labelClass(wn8,"WN8")+'">'+wn8+'</span></div></div>';
 			wr = Math.round(this.player.stats['WIN']/this.player.stats['GPL']*10000)/100;
 			ret += '<div class="row"><div class="name-wr">Win Ratio:</div><div class="value wr"><span class="label label-c'+labelClass(wr,"WIN")+'">'+wr+'%</span></div></div>';
 			dmg = Math.round(this.player.stats['DMG']/this.player.stats['GPL']*100)/100;

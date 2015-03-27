@@ -66,6 +66,7 @@ define(['./../../shared/api_request','./../../shared/clan_api_request','./../../
     			'#efficiency': {v:this.stats.EFR,c:'EFR'},
     			'#score': {v:this.stats.SC3,c:'SC3'},
     			'#wn7': {v:this.stats.WN7,c:'WN7'},
+    			'#wn8': {v:this.stats.WN8,c:'WN8'},
     			'#last_updated': "Updated "+formatTime((new Date(this.stats.updated_at)).getTime())
     		});
 	    },

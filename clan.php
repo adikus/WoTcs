@@ -106,6 +106,11 @@ ob_start();
 						<div class="right"><span class="label" id="wn7_average"></span></div>
 					</div>
 					<div class="row">
+						<div class="left">WN8:</div>
+						<div class="right"><span class="label" id="wn8_total"></span></div>
+						<div class="right"><span class="label" id="wn8_average"></span></div>
+					</div>
+					<div class="row">
 						<div class="left">Score:</div>
 						<div class="right"><span class="label" id="score"></span></div>
 						<div class="right"><span class="label" id="score_average"></span></div>
@@ -157,7 +162,7 @@ ob_start();
 				<th class="stats">
 					Stats:<br>
 					<span class="sort-eff label label-info">EFF</span>
-					<span class="sort-wn7 label">WN7</span>
+					<span class="sort-wn8 label">WN8</span>
 					<span class="sort-wr label" href="#">WR</span>
 					<span class="sort-dmg label" href="#">DMG</span>
 					<span class="sort-gpl label" href="#">BTL</span> 
@@ -228,8 +233,8 @@ ob_start();
 		        case 'eff':
 		        	i = s.indexOf('Efficiency:');
 		        	return parseFloat(s.slice(i+11,i+19));
-		        case 'wn7':
-		        	i = s.indexOf('WN7:');
+		        case 'wn8':
+		        	i = s.indexOf('WN8:');
 		        	return parseFloat(s.slice(i+4,i+12));
 		        case 'dmg':
 		        	i = s.indexOf('Damage:');
@@ -274,9 +279,9 @@ ob_start();
 					sortClick(this);
 				}		
 			});
-			$('.sort-wn7').click(function(){
+			$('.sort-wn8').click(function(){
 				if(!$(this).hasClass('label-info')){
-					STATS_SORT = 'wn7';
+					STATS_SORT = 'wn8';
 					sortClick(this);
 				}		
 			});

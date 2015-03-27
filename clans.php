@@ -16,6 +16,9 @@ switch($sort){
 	case 'wn7':
 		$order = 'WN7 DESC';
 		$where = ' AND updated_at > '.(time() - 60*60*24*7);	break;
+	case 'wn8':
+		$order = 'WN8 DESC';
+		$where = ' AND updated_at > '.(time() - 60*60*24*7);	break;
 	default:
 		$order = 'tag ASC';	break;
 }
@@ -39,7 +42,7 @@ ob_start();
 </h2>
 
 <p>
-	Here you can see list of all clans which are in this projects database. You can sort them alphabeticaly, by score or average WN7 rating. If you have any questions feel free to look at the <a href="<?=URL_BASE?>faq.php">FAQ</a> page.
+	Here you can see list of all clans which are in this projects database. You can sort them alphabeticaly, by score or average WN7/WN8 rating. If you have any questions feel free to look at the <a href="<?=URL_BASE?>faq.php">FAQ</a> page.
 </p>
 
 <div class="ad-728-90 search">
@@ -54,6 +57,7 @@ ob_start();
 	<li class="span3<?=$sort == 'az'?" active":""?>"><a href="<?=URL_BASE?>clans.php?order=az">A-Z</a></li>
     <li class="span3<?=$sort == 'sc3'?" active":""?>"><a href="<?=URL_BASE?>clans.php?order=sc3">Score</a></li>
     <li class="span3<?=$sort == 'wn7'?" active":""?>"><a href="<?=URL_BASE?>clans.php?order=wn7">WN7</a></li>
+    <!--li class="span3<?=$sort == 'wn8'?" active":""?>"><a href="<?=URL_BASE?>clans.php?order=wn8">WN8</a></li-->
 </ul>
 
 <div class="row-fluid">
@@ -66,13 +70,15 @@ foreach($c->getColumns() as $column){?>
 			?>
 			<div class="search-result small">
 				<a href="<?=URL_BASE?>clan.php?wid=<?=$clan->getWid()?>">
-					<?if($sort == 'sc3' || $sort == 'wn7'){echo $p->getRealOffset()+$j.".";}?>
+					<?if($sort == 'sc3' || $sort == 'wn7' || $sort == 'wn8'){echo $p->getRealOffset()+$j.".";}?>
 					<b><?=$clan->getTag()?></b>
-					<span class="info<?=$sort == 'sc3' || $sort == 'wn7'?" score":""?>">
+					<span class="info<?=$sort == 'sc3' || $sort == 'wn7' || $sort == 'wn8'?" score":""?>">
 						<?if($sort == 'sc3'){
 							echo formatNumber($clan->getStat("SC3"));
 						}elseif($sort == 'wn7'){
 							echo formatNumber($clan->getStat("WN7"));
+						}elseif($sort == 'wn8'){
+							echo formatNumber($clan->getStat("WN8"));
 						}elseif($sort == 'az' && $clan->getUpdatedAt() > 0){
 							echo formatTime($clan->getUpdatedAt());
 						}?>
