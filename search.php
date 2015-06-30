@@ -12,21 +12,24 @@ $t = isset($_GET['t'])?$_GET['t']:'clans';
 $wotReq = new WotRequest($region);
 $data = $wotReq->searchRequest($t,$_GET['search'],$max,$p->getRealOffset(),$region);
 $clansData = array();
-if(!isset($data["request_data"])){
-	$data["request_data"] = array('items' => array(), 'filtered_count' => 0);	
+if(!isset($data["response"]) && isset($data["request_data"])){
+	$data["response"] = $data["request_data"]["items"];	
 }
-if(count($data["request_data"]["items"]) == 0 && $t == 'clans'){
+if(!isset($data["response"])){
+	$data["response"] = array();	
+}
+if(count($data["response"]) == 0 && $t == 'clans'){
 	$data2 = $wotReq->searchRequest('accounts',$_GET['search'],$max,$p->getRealOffset(),$region);
-	if(count($data2["request_data"]["items"]) > 0 && $data2["result"] == "success"){
+	if(count($data2["response"]) > 0){
 		$data = $data2;
 		$t = "accounts";
 	}
 }
-foreach ($data["request_data"]["items"] as $clan){
-	$clantag = isset($clan['tag'])?$clan['tag']:$clan['abbreviation'];
-	$clansData[] = array('wid' => $clan['id'], 'clantag'=>$clantag,'name'=>$clan['name']);
+foreach ($data["response"] as $clan){
+	$clantag = isset($clan['clan_tag'])?$clan['clan_tag']:$clan['tag'];
+	$clansData[] = array('wid' => isset($clan['account_id'])?$clan['account_id']:$clan['id'], 'clantag'=>$clantag,'name'=>isset($clan['account_name'])?$clan['account_name']:$clan['name']);
 }
-$p->setCount($data["request_data"]["filtered_count"]);
+$p->setCount(count($clansData));
 
 $c = new ColumnManager($clansData,3);
 

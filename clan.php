@@ -70,13 +70,21 @@ ob_start();
 	</div>
 	<? } ?>
 	<div class="row">
-		<div class="ad-300-250">
-			<!-- BuySellAds Zone Code -->
-			<?if(!LOCAL){?>
-			<div id="bsap_1289970" class="bsarocks bsap_29ec8931db05ecf5d8b2ae91858a5977"></div>
-			<?}?>
-			<!-- End BuySellAds Zone Code -->
-		</div>
+		<? $rand = rand(0, 10); if($rand < 3){ ?>
+			<div class="ad-300-250">
+				<!-- BuySellAds Zone Code -->
+				<?if(!LOCAL){?><div id="bsap_1289970" class="bsarocks bsap_29ec8931db05ecf5d8b2ae91858a5977"></div><?}?>
+				<!-- End BuySellAds Zone Code -->
+			</div>
+		<?} elseif ($rand < 7){?>
+			<div class="ad-300-480">
+				<iframe frameborder='0' width='300' height='477' src='https://represent.com/jumbo-for-jumbos-1?embed=widget'></iframe>
+			</div>
+		<?} else {?>
+			<div class="ad-300-480">
+				<iframe frameborder='0' width='300' height='477' src='https://represent.com/jumbo-for-jumbos-case-1?embed=widget'></iframe>
+			</div>
+		<?}?>
 		<div class="ad-fill-rest">
 			<h1><img class="clan-emblem" src="img/clan-loader.gif"/><span class="tag">[<?=$clan->getTag();?>] </span><?=$clan->getName();?></h1>
 			<p id="motto"><?=$clan->getMotto();?></p>

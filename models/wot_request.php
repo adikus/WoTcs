@@ -32,8 +32,11 @@ class WotRequest{
 	public function searchRequest($t,$req,$l = null,$o = 0,$r = -1) {
 		$l = isset($l)?$l:10;
 		$req = urlencode ($req);
-		$t = $t == "clans"?"clans/search":"accounts/search";
-		return $this->JSONRequest("/community/".$t."/?search=".$req."&limit=".$l."&offset=".$o."&order_by=name");
+		if($t == "clans"){
+			return $this->JSONRequest("/community/clans/search/?search=".$req."&limit=".$l."&offset=".$o."&order_by=name");
+		}else{
+			return $this->JSONRequest("/community/accounts/search/?name=".$req);
+		}		
 	}
 	
 	public function clanDataRequest($req,$id = null) {

@@ -119,11 +119,21 @@ require_once 'config/etag.php';
       			<?=$content?>
       			<?if(!isset($bigContent)){?>
 					<div class="sidebar">
-						<div class="ad-300-250 main">
-							<!-- BuySellAds Zone Code -->
-							<div id="bsap_1289970" class="bsarocks bsap_29ec8931db05ecf5d8b2ae91858a5977"></div>
-							<!-- End BuySellAds Zone Code -->
-						</div>
+						<? if($adChoice == 0){ ?>
+							<div class="ad-300-250 main">
+								<!-- BuySellAds Zone Code -->
+								<div id="bsap_1289970" class="bsarocks bsap_29ec8931db05ecf5d8b2ae91858a5977"></div>
+								<!-- End BuySellAds Zone Code -->
+							</div>
+						<?} elseif ($adChoice == 1){?>
+							<div class="ad-300-480 main">
+								<iframe frameborder='0' width='300' height='477' src='https://represent.com/jumbo-for-jumbos-1?embed=widget'></iframe>
+							</div>
+						<?} else {?>
+							<div class="ad-300-480 main">
+								<iframe frameborder='0' width='300' height='477' src='https://represent.com/jumbo-for-jumbos-case-1?embed=widget'></iframe>
+							</div>
+						<?}?>
 						<?require 'extra.php';?>
 					</div>
 				<?}?>
