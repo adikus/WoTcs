@@ -28,12 +28,35 @@ class WotRequest{
 				break;
 		}
 	}
+
+	public static function getClanHost($r){
+		switch($r){
+			case 0:
+				return 'ru.wargaming.net';
+				break;
+			case 1:
+				return 'eu.wargaming.net';
+				break;
+			case 2:
+				return 'na.wargaming.net';
+				break;
+			case 3:
+				return 'asia.wargaming.net';
+				break;
+			case 4:
+				return 'portal-wot.go.vn';
+				break;
+			case 5:
+				return 'kr.wargaming.net';
+				break;
+		}
+	}
 	
 	public function searchRequest($t,$req,$l = null,$o = 0,$r = -1) {
 		$l = isset($l)?$l:10;
 		$req = urlencode ($req);
 		if($t == "clans"){
-			return $this->JSONRequest("/community/clans/search/?search=".$req."&limit=".$l."&offset=".$o."&order_by=name");
+			return $this->JSONRequest("/clans/search/list/autocomplete?search=".$req."&offset=".$o."&limit=".$l, true);
 		}else{
 			return $this->JSONRequest("/community/accounts/search/?name=".$req);
 		}		
@@ -43,7 +66,7 @@ class WotRequest{
 		return $this->JSONRequest("/community/clans/".$id."/".$req."/?type=table");
 	}
 	
-	public function JSONRequest($request){
+	public function JSONRequest($request, $clan_host = false){
 		$opts = array(
 		  'http'=>array(
 		    'method'=>"GET",
@@ -53,7 +76,9 @@ class WotRequest{
 		
 		$context = stream_context_create($opts);
 		
-		$result = file_get_contents("http://".$this->getHost($this->region).$request, false, $context);
+		$host = $clan_host ? $this->getClanHost($this->region) : $this->getHost($this->region);
+		$result = file_get_contents("http://".$host.$request, false, $context);
+		
 		$data = (json_decode($result, true));
 		$new = &$data;
 		return $new;

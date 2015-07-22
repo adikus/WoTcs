@@ -1,13 +1,16 @@
 <?php
 
+/*
 $rand = rand(0, 10);
 if($rand < 2)$adChoice = 0;
 elseif($rand < 7)$adChoice = 1;
 else $adChoice = 2;
+*/
+$adChoice = 0;
 
 if(LOCAL)return false;
 
-$layoutVersion = '1.4.2'.$jsVersion.$cssVersion;
+$layoutVersion = '1.4.3'.$jsVersion.$cssVersion;
 
 if(isset($content)){
 	if(!isset($bigContent)){

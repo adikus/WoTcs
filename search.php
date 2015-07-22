@@ -11,27 +11,38 @@ $t = isset($_GET['t'])?$_GET['t']:'clans';
 
 $wotReq = new WotRequest($region);
 $data = $wotReq->searchRequest($t,$_GET['search'],$max,$p->getRealOffset(),$region);
-$clansData = array();
-if(!isset($data["response"]) && isset($data["request_data"])){
-	$data["response"] = $data["request_data"]["items"];	
+
+$results = array();
+
+if($t == 'clans' && count($data['items']) > 0){
+	foreach ($data["items"] as $clan){
+		$results[] = array(
+			'clantag' => $clan['tag'],
+			'wid' => $clan['id'],
+			'name' => $clan['name']
+		);
+	}
 }
-if(!isset($data["response"])){
-	$data["response"] = array();	
-}
-if(count($data["response"]) == 0 && $t == 'clans'){
+if($t == 'clans' && count($data['items']) == 0){
 	$data2 = $wotReq->searchRequest('accounts',$_GET['search'],$max,$p->getRealOffset(),$region);
 	if(count($data2["response"]) > 0){
 		$data = $data2;
-		$t = "accounts";
+		$t = "accounts";		
 	}
 }
-foreach ($data["response"] as $clan){
-	$clantag = isset($clan['clan_tag'])?$clan['clan_tag']:$clan['tag'];
-	$clansData[] = array('wid' => isset($clan['account_id'])?$clan['account_id']:$clan['id'], 'clantag'=>$clantag,'name'=>isset($clan['account_name'])?$clan['account_name']:$clan['name']);
+if($t == 'accounts'){
+	foreach ($data["response"] as $player){
+		$results[] = array(
+			'clantag' => $player['clan_tag'],
+			'wid' => $player['account_id'],
+			'name' => $player['account_name']
+		);
+	}
 }
-$p->setCount(count($clansData));
 
-$c = new ColumnManager($clansData,3);
+$p->setCount(count($results));
+
+$c = new ColumnManager($results,3);
 
 ob_start();
 ?>
@@ -66,12 +77,12 @@ ob_start();
 	<?
 	foreach($c->getColumns() as $column){
 		?><div class="span4"><?
-		foreach($column as $clan){
+		foreach($column as $result){
 			
 			?>
 			<div class="search-result">
-				<a href="<?=URL_BASE?><?=$t=="clans"?"clan":"player"?>.php?wid=<?=$clan['wid']?>">
-					<?if($clan['clantag']){?><b>[<?=$clan['clantag']?>]</b><?}?><?=$clan['name']?>
+				<a href="<?=URL_BASE?><?=$t=="clans"?"clan":"player"?>.php?wid=<?=$result['wid']?>">
+					<?if($result['clantag']){?><b>[<?=$result['clantag']?>]</b><?}?><?=$result['name']?>
 				</a>
 			</div>
 			<?
