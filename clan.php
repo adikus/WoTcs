@@ -70,7 +70,7 @@ ob_start();
 	</div>
 	<? } ?>
 	<div class="row">
-		<? $rand = rand(0, 10); if($rand < 3){ ?>
+		<? $rand = 0; /*rand(0, 10);*/ if($rand < 3){ ?>
 			<div class="ad-300-250">
 				<!-- BuySellAds Zone Code -->
 				<?if(!LOCAL){?><div id="bsap_1289970" class="bsarocks bsap_29ec8931db05ecf5d8b2ae91858a5977"></div><?}?>
