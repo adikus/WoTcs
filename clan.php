@@ -218,6 +218,7 @@ ob_start();
 	<script>
 		WID = <?=$clan->getWid()?>;
 		WOT_BASE = 'http://clans.<?=getHost($clan->getRegion())?>/';
+		WOT_MEDIA_BASE = 'http://<?=getMediaHost($clan->getRegion())?>/clans/';
 		WOT_CW_BASE = 'http://<?=getHost($clan->getRegion())?>/';
 		WOT_API_BASE = 'http://api.<?=getHost($clan->getRegion())?>/';
 		STATS_SORT = 'eff';

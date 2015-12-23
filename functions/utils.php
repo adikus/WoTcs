@@ -52,6 +52,29 @@ function getHost($r){
 	}
 }
 
+function getMediaHost($r){
+	switch($r){
+		case 0:
+			return 'ru.wargaming.net';
+			break;
+		case 1:
+			return 'eu.wargaming.net';
+			break;
+		case 2:
+			return 'na.wargaming.net';
+			break;
+		case 3:
+			return 'asia.wargaming.net';
+			break;
+		case 4:
+			return 'portal-wot.go.vn';
+			break;
+		case 5:
+			return 'kr.wargaming.net';
+			break;
+	}
+}
+
 function getAPIKey($r){
 	switch($r){
 		case 0:

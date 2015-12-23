@@ -133,6 +133,7 @@ ob_start();
 	<script>
 		var WID = <?=$wid?>,
 			WOT_BASE = 'http://clans.<?=getHost($region)?>/',
+			WOT_MEDIA_BASE = 'http://<?=getMediaHost($region)?>/clans/',
 			URL_BASE = '<?=URL_BASE?>';		
 	</script>
 	
