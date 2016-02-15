@@ -12,6 +12,7 @@ $t = isset($_GET['t'])?$_GET['t']:'clans';
 $wotReq = new WotRequest($region);
 $data = $wotReq->searchRequest($t,$_GET['search'],$max,$p->getRealOffset(),$region);
 
+$data['items'] = $data['search_autocomplete_result'];
 $results = array();
 
 if($t == 'clans' && count($data['items']) > 0){
@@ -31,11 +32,11 @@ if($t == 'clans' && count($data['items']) == 0){
 	}
 }
 if($t == 'accounts'){
-	foreach ($data["response"] as $player){
+	foreach ($data["search_autocomplete_result"] as $player){
 		$results[] = array(
-			'clantag' => $player['clan_tag'],
-			'wid' => $player['account_id'],
-			'name' => $player['account_name']
+			'clantag' => $player['clan']['tag'],
+			'wid' => $player['id'],
+			'name' => $player['name']
 		);
 	}
 }

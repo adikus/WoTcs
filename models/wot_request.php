@@ -56,9 +56,9 @@ class WotRequest{
 		$l = isset($l)?$l:10;
 		$req = urlencode ($req);
 		if($t == "clans"){
-			return $this->JSONRequest("/clans/search/list/autocomplete?search=".$req."&offset=".$o."&limit=".$l, true);
+			return $this->JSONRequest("/clans/search/api/autocomplete/?type=clans&search=".$req."&offset=".$o."&limit=".$l, true);
 		}else{
-			return $this->JSONRequest("/community/accounts/search/?name=".$req);
+			return $this->JSONRequest("/clans/search/api/autocomplete/?type=accounts&search=".$req."&offset=".$o."&limit=".$l, true);
 		}		
 	}
 	
@@ -70,7 +70,8 @@ class WotRequest{
 		$opts = array(
 		  'http'=>array(
 		    'method'=>"GET",
-		    'header'=>"X-Requested-With: XMLHttpRequest\r\n"
+		    'header'=>"X-Requested-With: XMLHttpRequest\r\n",
+		    'header'=>"Accept:application/json, text/javascript, */*; q=0.01\r\n"
 		  )
 		);
 		
