@@ -26,7 +26,7 @@ if($t == 'clans' && count($data['items']) > 0){
 }
 if($t == 'clans' && count($data['items']) == 0){
 	$data2 = $wotReq->searchRequest('accounts',$_GET['search'],$max,$p->getRealOffset(),$region);
-	if(count($data2["response"]) > 0){
+	if(count($data2["search_autocomplete_result"]) > 0){
 		$data = $data2;
 		$t = "accounts";		
 	}
