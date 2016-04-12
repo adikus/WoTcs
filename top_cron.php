@@ -10,7 +10,7 @@ $data = array();
 for($i = $region;$i < $region+1;$i++){
 	if($i != 4){
 		$data[$i] = APIRequest::request('players','clans/top',array("region"=>$i));
-		echo "Loaded ".$i.".<br>";	
+		echo "Loaded ".$i.".<br>";
 	}
 }
 $csvdata = array();
@@ -18,7 +18,7 @@ for($i = $region;$i < $region+1;$i++){
 	if($i != 4){
 		$csvdata[$i] = "";
 		$pos = array("1"=>array(),"2"=>array(),"3"=>array(),"4"=>array());
-		foreach ($data[$i]["clans"] as $clan)if(isset($clan["vehs"])) {
+		foreach ($data[$i] as $clan)if(isset($clan["vehs"])) {
 			foreach ($clan["vehs"] as $type => $vehs) {
 				foreach ($vehs as $veh) {
 					if(!in_array($veh["name"],$pos[$type]))$pos[$type][] = $veh["name"];
@@ -34,7 +34,7 @@ for($i = $region;$i < $region+1;$i++){
 		$row .= "\n";
 		$csvdata[$i] .= $row;
 		$maxpos = count($pos[1])+count($pos[2])+count($pos[3])+count($pos[4])+1;
-		foreach ($data[$i]["clans"] as $clan)if(isset($clan["vehs"]))  {
+		foreach ($data[$i] as $clan)if(isset($clan["vehs"]))  {
 			$row = array($clan["tag"]);
 			foreach ($clan["vehs"] as $type => $vehs) {
 				foreach ($vehs as $veh) {

@@ -12,8 +12,14 @@ class APIRequest{
 		}else{
 			$optionSting = implode('&',$optionsArray);
 		}
+
+		$url = 'http://wotcsapi'.$server.'.herokuapp.com/';
+		if($path){
+			$url = $url.$path."/";
+		}
+		$url = $url.$optionSting;
 		
-		if($c = @file_get_contents('http://wotcsapi'.$server.'.herokuapp.com/'.$path."/".$optionSting)){
+		if($c = @file_get_contents($url)){
 			$decoded = json_decode($c,true);
 
 			if($server == 'players'){
