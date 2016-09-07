@@ -56,9 +56,9 @@ class WotRequest{
 		$l = isset($l)?$l:10;
 		$req = urlencode ($req);
 		if($t == "clans"){
-			return $this->JSONRequest("/clans/search/api/autocomplete/?type=clans&search=".$req."&offset=".$o."&limit=".$l, true);
+			return $this->JSONRequest("/clans/wot/search/api/autocomplete/?type=clans&search=".$req."&offset=".$o."&limit=".$l, true);
 		}else{
-			return $this->JSONRequest("/clans/search/api/autocomplete/?type=accounts&search=".$req."&offset=".$o."&limit=".$l, true);
+			return $this->JSONRequest("/clans/wot/search/api/autocomplete/?type=accounts&search=".$req."&offset=".$o."&limit=".$l, true);
 		}		
 	}
 	

@@ -2,6 +2,7 @@
 chdir('../..');
 require './config/main.php';
 $db = require './config/database.php';
+ini_set('display_errors', 'Off');
 
 $playerStats = new PlayerStats($db);
 $bdata = json_encode($playerStats->getAllBorders());
